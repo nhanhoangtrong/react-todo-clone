@@ -7,7 +7,7 @@ module.exports =  React.createClass({
       <ul className="todo-list">
         {this.props.todos.map((todo)=> {
           return (
-            <ToDoItem todoText={todo.text} todoCompleted={todo.completed} onCheckComplete={this.props.onItemCheckComplete} todoId={todo.id} key={todo.id}/>
+            <ToDoItem todoText={todo.text} todoCompleted={todo.completed} todoId={todo.id} key={todo.id}/>
           )
         })}
       </ul>

@@ -1,6 +1,8 @@
 var React = require('react')
 var ToDoForm = require('./ToDoForm.js')
 var ToDoList = require('./ToDoList.js')
+var todoStore = require('../redux-data/todo_store.js')
+var { addTodoActionCreator, markTodoActionCreator } = require('../redux-data/todo_action_creators.js')
 
 var todos = [
   {
@@ -14,33 +16,30 @@ var todos = [
     completed: true
   }
 ]
+// for (var i in todos) {
+//   todoStore.dispatch(addTodoActionCreator(todos[i].text))
+// }
 
-module.exports = React.createClass({
+var ToDo = React.createClass({
   getInitialState: function() {
-    return {todos: todos}
+    // We subscribe the update function of ToDo element so
+    // it will update when needed
+    todoStore.subscribe(this.update)
+    return {todos: todoStore.getState()}
   },
-  handleToDoCreate: function(text) {
-    var new_todos = this.state.todos
-    var id= todos[todos.length - 1].id + 1
-    new_todos.push({id: id, text: text, completed: false})
-    this.setState({todos: new_todos})
-  },
-  handleItemComplete: function(todo) {
-    var todos = this.state.todos
-    todos.forEach(function(t) {
-      if (t.id == todo.id) {
-        console.log(t)
-        t.completed = todo.completed
-      }
-    })
-    this.setState({todos: todos})
+  update: function() {
+    this.setState({todos: todoStore.getState()})
   },
   render: function() {
     return (
       <div className="todo">
-        <ToDoForm onToDoCreate={this.handleToDoCreate}/>
-        <ToDoList todos={this.state.todos} onItemCheckComplete={this.handleItemComplete}/>
+        <ToDoForm/>
+        <ToDoList todos={this.state.todos}/>
       </div>
     )
   }
 })
+
+
+
+module.exports = ToDo
