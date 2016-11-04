@@ -3,6 +3,7 @@ var ToDoForm = require('./ToDoForm.js')
 var ToDoList = require('./ToDoList.js')
 var todoStore = require('../redux-data/todo_store.js')
 var { addTodoActionCreator, markTodoActionCreator } = require('../redux-data/todo_action_creators.js')
+var style = require('../style/style.styl')
 
 var todos = [
   {
@@ -16,11 +17,12 @@ var todos = [
     completed: true
   }
 ]
-// for (var i in todos) {
-//   todoStore.dispatch(addTodoActionCreator(todos[i].text))
-// }
 
-var ToDo = React.createClass({
+for (var i in todos) {
+  todoStore.dispatch(addTodoActionCreator(todos[i].text))
+}
+
+var ToDoDay = React.createClass({
   getInitialState: function() {
     // We subscribe the update function of ToDo element so
     // it will update when needed
@@ -32,7 +34,7 @@ var ToDo = React.createClass({
   },
   render: function() {
     return (
-      <div className="todo">
+      <div className={style.todoDay}>
         <ToDoForm/>
         <ToDoList todos={this.state.todos}/>
       </div>
@@ -42,4 +44,4 @@ var ToDo = React.createClass({
 
 
 
-module.exports = ToDo
+module.exports = ToDoDay

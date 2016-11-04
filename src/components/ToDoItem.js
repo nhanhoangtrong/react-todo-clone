@@ -1,6 +1,7 @@
 var React = require('react')
 var todoStore = require('../redux-data/todo_store.js')
 var { markTodoActionCreator, removeTodoActionCreator } = require('../redux-data/todo_action_creators.js')
+var style = require('../style/style.styl')
 
 module.exports =  React.createClass({
   getInitialState: function() {
@@ -18,8 +19,8 @@ module.exports =  React.createClass({
     return (
       <li>
         <p>
-          <input type="checkbox" checked={this.props.todoCompleted} onChange={this.handleCheckComplete}/>
-          <input type="button" value="remove" onClick={this.handleRemoveClick}/>
+          <button onClick={this.handleCheckComplete}><div className={style.buttonRemove}/></button>
+          <button onClick={this.handleRemoveClick}><div className={style.buttonRemove}/></button>
           &nbsp;&nbsp;{text}
         </p>
       </li>

@@ -1,11 +1,11 @@
 var React = require('react')
-var ToDo = require('./ToDo.js')
+var ToDoDay = require('./ToDoDay.js')
 
 module.exports =  React.createClass({
   render: function() {
     return (
       <div>
-        <ToDo />
+        <ToDoDay />
       </div>
     )
   }
