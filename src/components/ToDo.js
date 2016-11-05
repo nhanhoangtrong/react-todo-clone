@@ -2,6 +2,10 @@ var React = require('react')
 var ToDoForm = require('./ToDoForm.js')
 var ToDoList = require('./ToDoList.js')
 
+var store = require('../data/todoStore.js')
+var addTodoActionCreator = require('../data/addTodoActionCreator.js')
+var markTodoActionCreator = require('../data/markTodoActionCreator.js')
+
 var todos = [
   {
     id: 1,
@@ -15,9 +19,16 @@ var todos = [
   }
 ]
 
+store.dispatch(addTodoActionCreator("Clean house"))
+console.log(store.getState())
+store.dispatch(addTodoActionCreator("Wash clothes"))
+console.log(store.getState())
+store.dispatch(markTodoActionCreator(2))
+console.log(store.getState())
+
 module.exports = React.createClass({
   getInitialState: function() {
-    return {todos: todos}
+    return {todos: store.getState().todos}
   },
   handleToDoCreate: function(text) {
     var new_todos = this.state.todos
