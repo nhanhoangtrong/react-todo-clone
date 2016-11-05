@@ -1,6 +1,7 @@
 var React = require('react')
 var todoStore = require('../redux-data/todo_store.js')
 var { addTodoActionCreator } = require('../redux-data/todo_action_creators.js')
+var style = require('../style/style.styl')
 
 module.exports =  React.createClass({
   getInitialState: function() {
@@ -13,7 +14,7 @@ module.exports =  React.createClass({
   },
   render: function() {
     return (
-      <form onSubmit={this.handleToDoSubmit}>
+      <form className={style.todoForm} onSubmit={this.handleToDoSubmit}>
         <input ref="todoText" type="text"/>
         <input type="submit" value="Add"/>
       </form>

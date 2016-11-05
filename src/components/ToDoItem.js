@@ -15,14 +15,18 @@ module.exports =  React.createClass({
     e.preventDefault()
   },
   render: function() {
-    var text = this.props.todoCompleted ? (<s>{this.props.todoText}</s>) : this.props.todoText
+    var textClass = this.props.todoCompleted ? style.todoCompleted : style.todoIncompleted
+    var buttonCheckClass = this.props.todoCompleted ? style.buttonUncheck : style.buttonCheck
     return (
       <li>
-        <p>
-          <button onClick={this.handleCheckComplete}><div className={style.buttonRemove}/></button>
-          <button onClick={this.handleRemoveClick}><div className={style.buttonRemove}/></button>
-          &nbsp;&nbsp;{text}
-        </p>
+        <div className={style.todoItem}>
+          <div className={style.todoButtons}>
+              <a href="#" className={style.button} onClick={this.handleCheckComplete}><span className={buttonCheckClass}/></a>
+
+            <a href="#" className={style.button} onClick={this.handleRemoveClick}><span className={style.buttonRemove}/></a>
+          </div>
+          <p className={textClass}>{this.props.todoText}</p>
+        </div>
       </li>
     )
   }

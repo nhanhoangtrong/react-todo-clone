@@ -1,44 +1,162 @@
-foreground_color = red
+@import './mixins'
+
+background_color = #F2E4FF
+foreground_color = #007DFFFF
+border_color = #69CAA7
+border_color_active = #BC5C74
+button_background = #E4BCA4FF
+button_background_hover = #ECCFA1
+
+tododay_border_color = #F2CC7B
+tododay_background_color = #FFE5FB
+
+tododay_header_background = #DADF70
 
 body, html
 	margin: 0
 	padding: 0
+	background-color: background_color
 
 *
-	display: block
+	font-family: 'Noto Serif', serif;
 	box-sizing: border-box
+
+.clearfix:before, .clearfix:after
+	content: ""
+	display: table
+.clearfix:after
+	clear: both
+
+
+.todoAppHeader
+	text-align: center
 
 .todoDay
 	display: block
-	float: left
-	max-width: 30%
+	max-width: 50%
+	margin-left: auto
+	margin-right: auto
+	background-color: tododay_background_color
 
-button
-	border: none
-	background: none
+	.todoDayHeader
+		text-align: center
+		border-top-left-radius: 4px
+		border-top-right-radius: 4px
+		background-color: tododay_header_background
+		h2
+			padding-top: 16px
+			padding-bottom: 12px
 
-.buttonRemove
-	color: #000
-	position: absolute
-	margin-top: 0
-	margin-left: 0
-	width: 12px
-	height: 12px
-.buttonRemove:before
-	content: ''
-	position: absolute
+	.todoList
+		list-style: none
+		padding: 10px 20px
+		li
+			margin-top: 8px
+			margin-bottom: 8px
+			border-bottom: 1px solid border_color
+		li:last-child
+			border-bottom: none
+
+	.todoItem
+		flexbox()
+		flex-flow: row nowrap
+		p
+			margin: 0
+			padding-left: 4px
+			&.todoCompleted
+				text-decoration: line-through
+			&.todoIncompleted
+				text-decoration: none
+		.todoButtons
+			min-width: 50px
+
+	.todoForm
+		padding: 6px
+		*
+			display: inline
+			border-width: 1px
+			border-radius: 3px
+			padding: 6px
+		input[type="text"]
+			width: 78%
+			margin-right: 2%
+			border-style: solid
+			border-color: border_color
+		input[type="text"]:focus
+			outline: none
+			border-color: border_color_active
+		input[type="submit"]
+			width: 20%
+
+/**
+**
+**	From here is button style and CSS custom ICON
+**
+**/
+
+.button
+	background: #fff
+	display: inline-block
+	postion: absolute
 	top: 10px
-	width: 21px
-	height: 1px
-	background-color: foreground_color
-	-webkit-transform: rotate(-45deg)
-	transform: rotate(-45deg)
-.buttonRemove:after
-	content: ''
-	position: absolute
-	top: 10px
-	width: 21px
-	height: 1px
-	background-color: foreground_color
-	-webkit-transform: rotate(45deg)
-	transform: rotate(45deg)
+	width: 20px
+	height: 20px
+	padding: 2px
+	margin-left: 2px
+	margin-right: 2px
+	border: solid 1px button_background
+	transition: all .25s ease-in-out;
+	span
+		display: block
+		transition: all .25s ease-in-out;
+	.buttonRemove
+		color: #000
+		position: absolute
+		margin-top: 0
+		margin-left: 0
+		width: 12px
+		height: 12px
+	.buttonRemove:before
+		content: ''
+		position: absolute
+		top: 7px
+		left: 0px
+		width: 15px
+		height: 2px
+		background-color: foreground_color
+		-webkit-transform: rotate(-45deg)
+		transform: rotate(-45deg)
+	.buttonRemove:after
+		content: ''
+		position: absolute
+		top: 7px
+		left: 0px
+		width: 15px
+		height: 2px
+		background-color: foreground_color
+		-webkit-transform: rotate(45deg)
+		transform: rotate(45deg)
+
+	.buttonCheck
+		color: #000
+		position: absolute
+		margin-top: 3px
+		margin-left: 2px
+		width: 12px
+		height: 6px
+		border-bottom: solid 2px foreground_color
+		border-left: solid 2px foreground_color
+		-webkit-transform: rotate(-45deg)
+		transform: rotate(-45deg)
+
+	.buttonUncheck
+		color: #000
+		position: relative
+		top: 50%
+		left: 50%
+		width: 10px
+		height: 2px
+		background-color: foreground_color
+		transform: translate(-50%, -50%)
+.button:hover
+	background-color: button_background_hover
