@@ -1,7 +1,7 @@
-var React = require('react')
-var ToDoApp = require('./ToDoApp.js')
+import React from 'react'
+import ToDoApp from './ToDoApp.js'
 
-module.exports =  React.createClass({
+export default React.createClass({
   render: function() {
     return (
       <div>

@@ -1,6 +1,6 @@
-var React = require('react')
-var ReactDOM = require('react-dom')
-var App = require('./components/App.js')
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from './components/App.js'
 require('./index.html')
 
 ReactDOM.render(<App/>, document.getElementById('app'))

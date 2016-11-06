@@ -1,7 +1,7 @@
-var React = require('react')
-var style = require('../style/style.styl')
+import React from 'react'
+import style from '../style/style.styl'
 
-module.exports = React.createClass({
+export default React.createClass({
 	render: function() {
 		return (
 	        <div className={style.todoDayHeader}>

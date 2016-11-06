@@ -1,8 +1,8 @@
-var React = require('react')
-var ToDoItem = require('./ToDoItem.js')
-var style = require('../style/style.styl')
+import React from 'react'
+import style from '../style/style.styl'
+import ToDoItem from './ToDoItem.js'
 
-module.exports =  React.createClass({
+export default  React.createClass({
   render: function() {
     return (
       <ul className={style.todoList}>

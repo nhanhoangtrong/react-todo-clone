@@ -39,4 +39,4 @@ var reducer = function(state = [], action) {
 	}
 }
 
-module.exports = createStore(reducer)
+export default createStore(reducer)

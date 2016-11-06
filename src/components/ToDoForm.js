@@ -1,9 +1,9 @@
-var React = require('react')
-var todoStore = require('../redux-data/todo_store.js')
-var { addTodoActionCreator } = require('../redux-data/todo_action_creators.js')
-var style = require('../style/style.styl')
+import React from 'react'
+import style from '../style/style.styl'
+import todoStore from '../redux-data/todo_store.js'
+import { addTodoActionCreator } from '../redux-data/todo_action_creators.js'
 
-module.exports =  React.createClass({
+export default  React.createClass({
   getInitialState: function() {
     return {text: ''}
   },

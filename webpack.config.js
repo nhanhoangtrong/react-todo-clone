@@ -1,22 +1,26 @@
 var path = require('path')
+var webpack = require('webpack')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
   entry: [
-    './index.js'
+    'react-hot-loader/patch', // activate HMR for react
+    'webpack-dev-server/client?http://localhost:8080', // bundle the client for webpack dev server
+    'webpack/hot/only-dev-server', // bundle the client for hot reloading
+    './index.js' // the entry point of this application
   ],
   output: {
     filename: "bundle.js",
     path: path.join(path.resolve(__dirname), "publish"),
     publicPath: "/"
   },
-  context: path.join(__dirname, "/src"),
+  context: path.join(__dirname, "src"),
   devtool: "eval-source-map",
+  target: "web",
   devServer: {
     historyAPIFallback: true,
     hot: true,
-    inline: true,
-    contentBase: "./publish",
+    contentBase: path.join(__dirname, "publish"),
     publicPath: "/"
   },
   module: {
@@ -37,6 +41,8 @@ module.exports = {
     ]
   },
   plugins: [
-    new ExtractTextPlugin("style.css")
+    new webpack.HotModuleReplacementPlugin(), // Enable HMR
+    new webpack.NamedModulesPlugin(), // For more readable output module names in browser console
+    new ExtractTextPlugin("style.css") // Extract css into separated file
   ]
 }

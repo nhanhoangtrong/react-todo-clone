@@ -1,10 +1,10 @@
-var React = require('react')
-var ToDoForm = require('./ToDoForm.js')
-var ToDoList = require('./ToDoList.js')
-var ToDoDayHeader = require('./ToDoDayHeader.js')
-var todoStore = require('../redux-data/todo_store.js')
-var { addTodoActionCreator, markTodoActionCreator } = require('../redux-data/todo_action_creators.js')
-var style = require('../style/style.styl')
+import React from 'react'
+import style from '../style/style.styl'
+import ToDoForm from './ToDoForm.js'
+import ToDoList from './ToDoList.js'
+import ToDoDayHeader from './ToDoDayHeader.js'
+import todoStore from '../redux-data/todo_store.js'
+import { addTodoActionCreator, markTodoActionCreator } from '../redux-data/todo_action_creators.js'
 
 var todos = [
   {
@@ -49,6 +49,4 @@ var ToDoDay = React.createClass({
   }
 })
 
-
-
-module.exports = ToDoDay
+export default ToDoDay
