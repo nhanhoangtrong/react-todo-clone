@@ -3,7 +3,7 @@ var todoStore = require('../redux-data/todo_store.js')
 var { markTodoActionCreator, removeTodoActionCreator } = require('../redux-data/todo_action_creators.js')
 var style = require('../style/style.styl')
 
-module.exports =  React.createClass({
+module.exports = React.createClass({
   getInitialState: function() {
     return {completed: this.props.todoCompleted}
   },
