@@ -13,6 +13,7 @@ module.exports = {
   context: path.join(__dirname, "/src"),
   devtool: "eval-source-map",
   devServer: {
+    historyAPIFallback: true,
     hot: true,
     inline: true,
     contentBase: "./publish",
@@ -30,7 +31,7 @@ module.exports = {
         test: /\.css$/, loaders: ['file?name=[name].[file]']
       },
       {
-        test: /\.styl$/, 
+        test: /\.styl$/,
         loader: ExtractTextPlugin.extract(['css?modules&sourceMap', 'postcss', 'stylus' ])
       }
     ]
