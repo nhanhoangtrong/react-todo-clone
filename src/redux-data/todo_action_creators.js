@@ -16,5 +16,15 @@ module.exports = {
 			type: 'MARK_COMPLETED',
 			id: id
 		}
+	},
+	filterCompletedActionCreator: function() {
+		return {
+			type: 'FILTER_COMPLETED'
+		}
+	},
+	filterIncompletedActionCreator: function() {
+		return {
+			type: 'FILTER_INCOMPLETE'
+		}
 	}
  }

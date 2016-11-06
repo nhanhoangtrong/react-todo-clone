@@ -18,7 +18,7 @@ module.exports = {
   devtool: "eval-source-map",
   target: "web",
   devServer: {
-    historyAPIFallback: true,
+    historyApiFallback: true,
     hot: true,
     contentBase: path.join(__dirname, "publish"),
     publicPath: "/"
