@@ -19,7 +19,6 @@ module.exports = {
   target: "web",
   devServer: {
     historyApiFallback: true,
-    hot: true,
     contentBase: path.join(__dirname, "publish"),
     publicPath: "/"
   },
