@@ -7,6 +7,7 @@ export default  React.createClass({
     return (
       <ul className={style.todoList}>
         {this.props.todos.map((todo)=> {
+          if (todo.visible)
           return (
             <ToDoItem todoText={todo.text} todoCompleted={todo.completed} todoId={todo.id} key={todo.id}/>
           )

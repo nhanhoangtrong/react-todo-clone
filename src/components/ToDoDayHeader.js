@@ -7,9 +7,9 @@ export default React.createClass({
 		return (
 	        <div className={style.todoDayHeader}>
 	        	<h2>Date {this.props.date}</h2>
-	        	<Link to="/all" activeClassName={style.linkActive}>All</Link>
-	        	<Link to="/completed" activeClassName={style.linkActive}>Completed</Link>
-	        	<Link to="/incompleted" activeClassName={style.linkActive}>Incompleted</Link>
+	        	<Link to="/todo/all" activeClassName={style.active}>All</Link>
+	        	<Link to="/todo/completed" activeClassName={style.active}>Completed</Link>
+	        	<Link to="/todo/incompleted" activeClassName={style.active}>Incompleted</Link>
 	        </div>
         )
 	}

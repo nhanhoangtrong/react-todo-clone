@@ -17,6 +17,11 @@ module.exports = {
 			id: id
 		}
 	},
+	filterAllActionCreator: function() {
+		return {
+			type: 'FILTER_ALL'
+		}
+	},
 	filterCompletedActionCreator: function() {
 		return {
 			type: 'FILTER_COMPLETED'
@@ -24,7 +29,7 @@ module.exports = {
 	},
 	filterIncompletedActionCreator: function() {
 		return {
-			type: 'FILTER_INCOMPLETE'
+			type: 'FILTER_INCOMPLETED'
 		}
 	}
  }
