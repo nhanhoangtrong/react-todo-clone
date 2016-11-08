@@ -10,13 +10,9 @@ export default React.createClass({
     	this.unsubscribe = todoStore.subscribe(this.update)
 		return {todos: todoStore.getState()}
 	},
-	shouldComponentUpdate: function(nextProps, nextState) {
-		if (this.props.params) {
-			this.filterToDos(this.props.params.filter)
-		}
-		else {
-			this.filterToDos("")
-		}
+	shouldComponentUpdate(nextProps, nextState) {
+		this.filterToDos(nextProps.filter)
+		return true
 	},
 	componentWillReceiveProps: function(nextProps) {
 		this.filterToDos(nextProps.filter)
