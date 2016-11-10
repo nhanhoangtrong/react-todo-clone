@@ -7,10 +7,15 @@ export default React.createClass({
 	getInitialState: function() {
     	// We subscribe the update function of ToDo element so
     	// it will update when needed
+    	this.filterToDos(this.props.filter)
     	this.unsubscribe = todoStore.subscribe(this.update)
 		return {todos: todoStore.getState()}
 	},
+	componentWillMount() {
+		console.log("Component Will Mount")
+	},
 	shouldComponentUpdate(nextProps, nextState) {
+		console.log("Should component update")
 		this.filterToDos(nextProps.filter)
 		return true
 	},
