@@ -1,15 +1,17 @@
 import React from 'react'
-import todoStore from '../redux-data/todo_store'
+import todoStore from '../redux/todo_store'
 import ToDoDay from './ToDoDay'
-import { filterCompletedActionCreator, filterIncompletedActionCreator, filterAllActionCreator } from '../redux-data/todo_action_creators'
+import { filterCompletedActionCreator, filterIncompletedActionCreator, filterAllActionCreator } from '../redux/action_creators/filter_action_creators'
 
+
+console.log(JSON.stringify(todoStore.getState()))
 export default React.createClass({
 	getInitialState: function() {
     	// We subscribe the update function of ToDo element so
     	// it will update when needed
     	this.filterToDos(this.props.filter)
     	this.unsubscribe = todoStore.subscribe(this.update)
-		return {todos: todoStore.getState()}
+		return {todos: todoStore.getState().todos}
 	},
 	componentWillMount() {
 		console.log("Component Will Mount")
@@ -27,11 +29,12 @@ export default React.createClass({
 	},
 	update: function() {
 		// console.log(this.state)
-		todoStore.getState().map(function(todo) {
+		console.log(JSON.stringify(todoStore.getState().todos))
+		todoStore.getState().todos.map(function(todo) {
 			console.log(todo.visible, todo.text)
 		})
 
-		this.setState({todos: todoStore.getState()})
+		this.setState({todos: todoStore.getState().todos})
 	},
 	filterToDos: function(filter) {
 		switch (filter) {

@@ -1,10 +1,10 @@
 import React from 'react'
 import style from '../style/style.styl'
-import ToDoForm from './ToDoForm.js'
-import ToDoList from './ToDoList.js'
-import ToDoDayHeader from './ToDoDayHeader.js'
+import ToDoForm from './ToDoForm'
+import ToDoList from './ToDoList'
+import ToDoDayHeader from './ToDoDayHeader'
 
-import { addTodoActionCreator, markTodoActionCreator } from '../redux-data/todo_action_creators.js'
+import { addTodoActionCreator, markTodoActionCreator } from '../redux/action_creators/todo_action_creators'
 
 var ToDoDay = React.createClass({
   render: function() {

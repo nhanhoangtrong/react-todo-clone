@@ -1,7 +1,7 @@
 import React from 'react'
 import style from '../style/style.styl'
-import todoStore from '../redux-data/todo_store.js'
-import { markTodoActionCreator, removeTodoActionCreator } from '../redux-data/todo_action_creators.js'
+import todoStore from '../redux/todo_store'
+import { removeTodoActionCreator, markTodoActionCreator } from '../redux/action_creators/todo_action_creators'
 
 export default React.createClass({
   getInitialState: function() {
