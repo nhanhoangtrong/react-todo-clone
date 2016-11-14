@@ -1,7 +1,6 @@
 import React from 'react'
 import style from '../style/style.styl'
 import todoStore from '../redux/todo_store'
-import { removeTodoActionCreator, markTodoActionCreator } from '../redux/action_creators/todo_action_creators'
 
 export default React.createClass({
   render: function() {
