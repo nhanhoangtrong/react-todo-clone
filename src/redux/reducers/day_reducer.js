@@ -19,7 +19,7 @@ export default function(state = [], action) {
 			]
 		case REMOVE_DAY:
 			return state.filter( (day) => {
-				return day.id !=== action.id
+				return day.id !== action.id
 			})
 		case EDIT_DAY:
 			return state.map( (day) => {
@@ -28,5 +28,7 @@ export default function(state = [], action) {
 				}
 				return day
 			})
+		default:
+			return state
 	}
 }

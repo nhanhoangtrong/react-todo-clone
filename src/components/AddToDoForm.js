@@ -11,7 +11,6 @@ export default  React.createClass({
     }
     this.refs.todoText.value = "" // set value to null
     e.preventDefault() // Stop default handle
-    console.log("Add preventDefault!")
   },
   render: function() {
     return (

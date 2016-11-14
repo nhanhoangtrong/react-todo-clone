@@ -8,7 +8,7 @@ import App from './components/App'
 import ToDoApp from './components/ToDoApp'
 
 require('./index.html')
-
+console.log(todoStore.getState())
 var render = function() {
 	return (
 		<Provider store={todoStore}>
