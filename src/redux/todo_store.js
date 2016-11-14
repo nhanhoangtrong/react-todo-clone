@@ -1,6 +1,7 @@
 import { createStore, combineReducers } from 'redux'
 import todoReducer from './reducers/todo_reducer'
 import filterReducer from './reducers/filter_reducer'
+import dayReducer from './reducers/day_reducer'
 
 var todos = [
   {
@@ -25,5 +26,6 @@ var todos = [
 
 export default createStore(combineReducers({
 	filter: filterReducer,
-	todos: todoReducer
+	todos: todoReducer,
+  days: dayReducer
 }))

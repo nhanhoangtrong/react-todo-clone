@@ -1,0 +1,8 @@
+module.exports = {
+	CREATE_DAY: 10,
+	REMOVE_DAY: 11,
+	EDIT_DAY: 12,
+	ADD_TODO_DAY: 13,
+	REMOVE_TODO_DAY: 14,
+	MARK_TODO_DAY: 15
+}
