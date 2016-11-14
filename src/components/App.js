@@ -1,6 +1,7 @@
 import React from 'react'
 import ToDoApp from './ToDoApp.js'
-import { Link, IndexLink } from 'react-router'
+import { IndexLink } from 'react-router'
+import FilterLink from './FilterLink'
 import style from '../style/style.styl'
 
 export default React.createClass({
@@ -9,7 +10,7 @@ export default React.createClass({
       <div className={style.app}>
       	<div className={style.navBar}>
 		  	<IndexLink to="/" activeClassName={style.active}>Home</IndexLink>
-		  	<Link to="/todo" activeClassName={style.active}>ToDo</Link>
+		  	<FilterLink to="/todo">ToDo</FilterLink>
       	</div>
         {this.props.children}
       </div>

@@ -1,56 +1,40 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import todoStore from '../redux/todo_store'
 import ToDoDay from './ToDoDay'
 import { filterCompletedActionCreator, filterIncompletedActionCreator, filterAllActionCreator } from '../redux/action_creators/filter_action_creators'
+import { todoMarkActionCreator } from '../redux/action_creators/todo_action_creators'
+import { FILTER_ALL, FILTER_COMPLETED, FILTER_INCOMPLETED } from '../redux/action_types/filter_action_types'
 
 
-console.log(JSON.stringify(todoStore.getState()))
-export default React.createClass({
-	getInitialState: function() {
-    	// We subscribe the update function of ToDo element so
-    	// it will update when needed
-    	this.filterToDos(this.props.filter)
-    	this.unsubscribe = todoStore.subscribe(this.update)
-		return {todos: todoStore.getState().todos}
-	},
-	componentWillMount() {
-		console.log("Component Will Mount")
-	},
-	shouldComponentUpdate(nextProps, nextState) {
-		console.log("Should component update")
-		this.filterToDos(nextProps.filter)
-		return true
-	},
-	componentWillReceiveProps: function(nextProps) {
-		this.filterToDos(nextProps.filter)
-	},
-	componentDiDUnmount: function() {
-		this.unsubscribe()
-	},
-	update: function() {
-		// console.log(this.state)
-		console.log(JSON.stringify(todoStore.getState().todos))
-		todoStore.getState().todos.map(function(todo) {
-			console.log(todo.visible, todo.text)
-		})
-
-		this.setState({todos: todoStore.getState().todos})
-	},
-	filterToDos: function(filter) {
-		switch (filter) {
-			case "completed":
-				todoStore.dispatch(filterCompletedActionCreator())
-				return
-			case "incompleted":
-				todoStore.dispatch(filterIncompletedActionCreator())
-				return
-			default:
-				todoStore.dispatch(filterAllActionCreator())
-		}
-	},
-	render: function() {
-		return (
-		        <ToDoDay todos={this.state.todos} />
-		        )
+const getFilteredTodos = (todos, filter) => {
+	switch (filter) {
+		case FILTER_COMPLETED:
+			return todos.filter(todo => todo.completed)
+		case FILTER_INCOMPLETED:
+			return todos.filter(todo => !todo.completed)
+		default:
+			return todos
 	}
-})
+}
+
+const mapStateToProps = (state, ownProps) => {
+	return  {
+		todos: getFilteredTodos(state.todos, state.filter)
+	}
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+	return {
+		onTodoClick: (id) => {
+			dispatch(todoMarkActionCreator(id))
+		}
+	}
+}
+
+const ToDoDayFilterable = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(ToDoDay)
+
+export default ToDoDayFilterable

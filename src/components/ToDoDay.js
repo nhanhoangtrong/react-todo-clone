@@ -1,6 +1,6 @@
 import React from 'react'
 import style from '../style/style.styl'
-import ToDoForm from './ToDoForm'
+import AddableToDoForm from './AddableToDoForm'
 import ToDoList from './ToDoList'
 import ToDoDayHeader from './ToDoDayHeader'
 
@@ -12,7 +12,7 @@ var ToDoDay = React.createClass({
       <div className={style.todoDay}>
         <ToDoDayHeader date="25-02-1994"/>
         <ToDoList todos={this.props.todos}/>
-        <ToDoForm/>
+        <AddableToDoForm/>
       </div>
     )
   }

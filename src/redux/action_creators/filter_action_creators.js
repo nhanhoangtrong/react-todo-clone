@@ -15,5 +15,10 @@ module.exports = {
 		return {
 			type: FILTER_INCOMPLETED
 		}
+	},
+	setFilterActionCreator: function(filter) {
+		return {
+			type: filter
+		}
 	}
 }
