@@ -8,7 +8,7 @@ export default React.createClass({
 		return (
 			<div className={style.todoApp}>
 				<ToDoAppHeader />
-				<ToDoDayFilterable filter={this.props.params.filter}/>
+				<ToDoDayFilterable filter={this.props.params.filter} dayId={1} />
 			</div>
 		)
 	}

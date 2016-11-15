@@ -6,7 +6,7 @@ import AddToDoForm from './AddToDoForm'
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		onClickAddToDo: (text) => {
-			dispatch(addTodoActionCreator(text))
+			dispatch(addTodoActionCreator(text, ownProps.dayId))
 		}
 	}
 }

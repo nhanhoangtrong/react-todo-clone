@@ -1,4 +1,5 @@
 import { ADD_TODO, REMOVE_TODO, MARK_TODO } from '../action_types/todo_action_types'
+import { REMOVE_DAY } from '../action_types/day_action_types'
 
 module.exports = function(state = [], action) {
 	switch (action.type) {
@@ -9,6 +10,7 @@ module.exports = function(state = [], action) {
 				{
 					id: new_id,
 					text: action.text,
+					day_id: action.day_id,
 					completed: false
 				}
 			]
@@ -26,6 +28,14 @@ module.exports = function(state = [], action) {
 				}
 				return todo
 			}))
+		case REMOVE_DAY:
+			return state.reduce(function(new_state, todo) {
+				// Remove all todos in this day
+				if (todo.day_id !== action.id) {
+					new_state.push(todo)
+				}
+				return new_state
+			})
 		default:
 			return state
 	}

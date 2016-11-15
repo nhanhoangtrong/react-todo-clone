@@ -15,16 +15,16 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
-		onEditSubmit: (date) {
+		onEditSubmit: (date) => {
 			dispatch(editDay(date))
 		},
-		onClickRemove: (id) {
+		onClickRemove: (id) => {
 			dispatch(removeDay(id))
 		}
 	}
 }
 
-const EditableToDoDay = connect(
+const EditableToDoDayHeader = connect(
 	mapStateToProps,
 	mapDispatchToProps
 )(ToDoDayHeader)
