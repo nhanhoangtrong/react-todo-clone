@@ -7,28 +7,29 @@ import {
 	MARK_TODO_DAY
 } from '../action_types/day_action_types'
 
-export default function(state = [], action) {
+export default function(days = [], action) {
 	switch (action.type) {
 		case CREATE_DAY:
+			var day_id = (days.length === 0 ? 0 : days[days.length-1].id) + 1;
 			return [
-				...state,
+				...days,
 				{
 					date: action.date,
-					id: action.id
+					id: day_id
 				}
 			]
 		case REMOVE_DAY:
-			return state.filter( (day) => {
+			return days.filter( (day) => {
 				return day.id !== action.id
 			})
 		case EDIT_DAY:
-			return state.map( (day) => {
+			return days.map( (day) => {
 				if (day.id === action.id) {
 					day.date = action.date
 				}
 				return day
 			})
 		default:
-			return state
+			return days
 	}
 }

@@ -5,7 +5,6 @@ import { setFilterActionCreator } from '../redux/action_creators/filter_action_c
 
 const mapStateToProps = (state, ownProps) => {
 	return {
-		isActive: ownProps.filter === state.filter
 	}
 }
 

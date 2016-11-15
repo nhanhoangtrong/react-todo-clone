@@ -6,5 +6,5 @@ import dayReducer from './reducers/day_reducer'
 export default createStore(combineReducers({
 	filter: filterReducer,
 	todos: todoReducer,
-  days: dayReducer
+  	days: dayReducer
 }))

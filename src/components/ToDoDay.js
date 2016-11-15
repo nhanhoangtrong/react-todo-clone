@@ -10,9 +10,9 @@ var ToDoDay = React.createClass({
   render: function() {
     return (
       <div className={style.todoDay}>
-        <EditableToDoDayHeader date="25-02-1994"/>
+        <EditableToDoDayHeader day={this.props.day} date={this.props.day.date}/>
         <ToDoList todos={this.props.todos}/>
-        <AddableToDoForm dayId={this.props.dayId}/>
+        <AddableToDoForm dayId={this.props.day.id}/>
       </div>
     )
   }

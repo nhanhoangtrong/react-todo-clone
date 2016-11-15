@@ -1,6 +1,6 @@
 import React from 'react'
 import style from '../style/style.styl'
-import ToDoDayFilterable from './ToDoDayFilterable'
+import AddableToDoDayList from './AddableToDoDayList'
 import ToDoAppHeader from './ToDoAppHeader'
 
 export default React.createClass({
@@ -8,7 +8,7 @@ export default React.createClass({
 		return (
 			<div className={style.todoApp}>
 				<ToDoAppHeader />
-				<ToDoDayFilterable filter={this.props.params.filter} dayId={1} />
+				<AddableToDoDayList />
 			</div>
 		)
 	}
