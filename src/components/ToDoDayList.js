@@ -10,14 +10,14 @@ export default React.createClass({
 	},
 	render: function() {
 		return (
-			<div style={style.todoDayList}>
+			<div className={style.todoDayList}>
 				{this.props.days.map( day => {
 					return (
 						<FilterableToDoDay day={day} key={day.id} />
 					)
 				})}
-				<div>
-					<a href="#" className={style.todoDayAdd} onClick={this.handleAdd}>Add</a>
+				<div className={style.todoDayListBottom}>
+					<a href="#" className={style.button} onClick={this.handleAdd}>Add</a>
 				</div>
 			</div>
 		)

@@ -5,14 +5,14 @@ import todoStore from '../redux/todo_store'
 export default React.createClass({
   render: function() {
     var textClass = this.props.todoCompleted ? style.todoCompleted : style.todoIncompleted
-    var buttonCheckClass = this.props.todoCompleted ? style.buttonUncheck : style.buttonCheck
+    var buttonCheckClass = this.props.todoCompleted ? style.iconButtonUncheck : style.iconButtonCheck
     return (
       <li>
         <div className={style.todoItem}>
           <div className={style.todoButtons}>
-              <a href="#" className={style.button} onClick={this.props.onClickMarkTodo}><span className={buttonCheckClass}/></a>
+              <a href="#" className={style.iconButton} onClick={this.props.onClickMarkTodo}><span className={buttonCheckClass}/></a>
 
-            <a href="#" className={style.button} onClick={this.props.onClickRemoveTodo}><span className={style.buttonRemove}/></a>
+            <a href="#" className={style.iconButton} onClick={this.props.onClickRemoveTodo}><span className={style.iconButtonRemove}/></a>
           </div>
           <p className={textClass}>{this.props.todoText}</p>
         </div>
