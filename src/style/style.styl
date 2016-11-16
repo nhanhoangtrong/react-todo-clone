@@ -121,7 +121,7 @@ a
 		flexbox()
 		flex-flow row nowrap
 		input[type="text"]
-			display block
+			flex 1 80%
 			margin 0
 			padding-left 4px
 			border none
@@ -134,7 +134,9 @@ a
 			&.todoIncompleted
 				text-decoration none
 		.todoButtons
-			min-width 50px
+			flex 1 10%
+			flexbox()
+			justify-content center
 
 	.todoForm
 		padding 6px
