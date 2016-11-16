@@ -7,10 +7,11 @@ border_color_active = #BC5C74
 button_background = #E4BCA4FF
 button_background_hover = #ECCFA1
 
+tododay_header_background = #DADF70
 tododay_border_color = #F2CC7B
 tododay_background_color = #FFE5FB
 
-tododay_header_background = #DADF70
+todoitem_active_border_color = #BC5C74
 
 link_color = #875EB4
 link_active_color = #6FAEA2
@@ -119,9 +120,15 @@ a
 	.todoItem
 		flexbox()
 		flex-flow row nowrap
-		p
+		input[type="text"]
+			display block
 			margin 0
 			padding-left 4px
+			border none
+			background tododay_background_color
+			&:focus, &:active
+				outline none
+				border-bottom 1px solid todoitem_active_border_color
 			&.todoCompleted
 				text-decoration line-through
 			&.todoIncompleted

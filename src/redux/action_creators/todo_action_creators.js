@@ -8,7 +8,7 @@ module.exports = {
 			text: text
 		}
 	},
-	editToDoActionCreator: function(id, text) {
+	editTodoActionCreator: function(id, text) {
 		return {
 			type: EDIT_TODO,
 			id: id,

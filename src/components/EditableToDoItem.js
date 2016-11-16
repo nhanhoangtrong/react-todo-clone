@@ -1,7 +1,13 @@
 import React from 'react'
 import ToDoItem from './ToDoItem'
-import { connect } from 'react-redux'
-import { markTodoActionCreator, removeTodoActionCreator } from '../redux/action_creators/todo_action_creators'
+import {
+	connect
+} from 'react-redux'
+import {
+	editTodoActionCreator,
+	markTodoActionCreator,
+	removeTodoActionCreator
+} from '../redux/action_creators/todo_action_creators'
 
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
@@ -12,6 +18,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 		onClickRemoveTodo: (e) => {
 			e.preventDefault()
 			dispatch(removeTodoActionCreator(ownProps.todoId))
+		},
+		onSubmitEditTodo: (text) => {
+			dispatch(editTodoActionCreator(ownProps.todoId, text))
 		}
 	}
 }
