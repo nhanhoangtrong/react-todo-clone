@@ -16,19 +16,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	}
 }
 
-// const mergeProps = (stateProps, dispatchProps, ownProps) {
-// 	return {
-// 		...stateProps,
-// 		...dispatchProps,
-// 		todoText: ownProps.todoText,
-// 		todoId: ownProps.todoId,
-// 		todoCompleted: ownProps.todoCompleted
-// 	}
-// }
-
-const MarkableToDoItem = connect(
+const EditableToDoItem = connect(
 	null,
 	mapDispatchToProps
 )(ToDoItem)
 
-export default MarkableToDoItem
+export default EditableToDoItem
