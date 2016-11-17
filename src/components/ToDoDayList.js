@@ -5,7 +5,7 @@ import FilterableToDoDay from './FilterableToDoDay'
 export default React.createClass({
 	handleAdd: function(e) {
 		e.preventDefault()
-		var date = new Date().getDate()
+		var date = new Date()
 		this.props.onCreateDay(date)
 	},
 	render: function() {

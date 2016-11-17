@@ -10,7 +10,7 @@ import ToDoDayHeader from './ToDoDayHeader'
 
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
-		onEditSubmit: (day_id, date) => {
+		onEditDateSubmit: (day_id, date) => {
 			dispatch(editDay(day_id, date))
 		},
 		onClickRemove: (id) => {
