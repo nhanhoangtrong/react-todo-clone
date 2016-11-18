@@ -36,12 +36,9 @@ module.exports = function(todos = [], action) {
 				return todo
 			}))
 		case REMOVE_DAY:
-			return todos.reduce(function(new_todos, todo) {
+			return todos.filter( (todo) => {
 				// Remove all todos in this day
-				if (todo.day_id !== action.id) {
-					new_todos.push(todo)
-				}
-				return new_todos
+				return todo.day_id !== action.id
 			})
 		default:
 			return todos

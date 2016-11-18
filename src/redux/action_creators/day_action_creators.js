@@ -17,7 +17,7 @@ module.exports = {
 	removeDay: (id) => {
 		return {
 			type: REMOVE_DAY,
-			date: date
+			id: id
 		}
 	},
 	editDay: (id, date) => {

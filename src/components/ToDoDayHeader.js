@@ -40,7 +40,7 @@ export default React.createClass({
 			var maxDate = this.getMaxDate(this.state.month, this.state.year)
 			if (date > 0 && date <= maxDate) {
 				this.setState({date: date})
-				this.props.onEditDateSubmit(this.props.day.id, new Date(this.state.year, this.state.month, date))
+				this.props.onEditDateSubmit(new Date(this.state.year, this.state.month, date))
 			}
 		} catch (err) {
 		}
@@ -57,7 +57,7 @@ export default React.createClass({
 					date = maxDate
 				}
 				this.setState({month: month, date: date, dates: dates})
-				this.props.onEditDateSubmit(this.props.day.id, new Date(this.state.year, month, date))
+				this.props.onEditDateSubmit(new Date(this.state.year, month, date))
 			}
 		} catch (err) {
 
@@ -73,15 +73,18 @@ export default React.createClass({
 				date = maxDate
 			}
 			this.setState({year: year, date: date, dates: dates})
-			this.props.onEditDateSubmit(this.props.day.id, new Date(year, this.state.month, date))
+			this.props.onEditDateSubmit(new Date(year, this.state.month, date))
 		} catch (err) {
 
 		}
 
 	},
+	handleOnRemove: function(e) {
+		e.preventDefault()
+		this.props.onClickRemove()
+	},
 	render: function() {
-		console.log(this.state.date, this.state.month, this.state.year)
-		console.log(store.getState().days[0])
+		console.log(store.getState())
 		return (
 	        <div className={style.todoDayHeader}>
 	        	<select name="date" onChange={this.handleOnSelectDate} value={this.state.date}>
@@ -100,6 +103,7 @@ export default React.createClass({
 	        		<option value={2017}>2017</option>
 	        		<option value={2018}>2018</option>
 	        	</select>
+	        	<a href="#" className={style.iconButton} onClick={this.handleOnRemove}><span className={style.iconButtonRemove}/></a>
 	        </div>
         )
 	}
