@@ -9,7 +9,8 @@ export default React.createClass({
       <div className={style.app}>
       	<div className={style.navBar}>
 		  	<IndexLink to="/" activeClassName={style.active}>Home</IndexLink>
-		  	<Link to="/todo" activeClassName={style.active}>ToDo</Link>
+		  	<Link to="/todo" activeClassName={style.active}>To Do</Link>
+        <Link to="/user" activeClassName={style.active}>User</Link>
       	</div>
         {this.props.children}
       </div>

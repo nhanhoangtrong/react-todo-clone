@@ -7,7 +7,7 @@ import SearchableForm from './SearchableForm'
 export default React.createClass({
 	render: function() {
 		return (
-		        <div className={style.todoAppHeader}>
+		        <div className={style.appHeader}>
 		        	<h1>ToDo Application</h1>
 		        	<p>A small ToDo Application for everyone</p>
 		        	<FilterLink to="/todo/all" filter={FILTER_ALL}>All</FilterLink>

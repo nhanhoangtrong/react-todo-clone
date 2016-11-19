@@ -6,6 +6,7 @@ import todoStore from './redux/todo_store'
 
 import App from './components/App'
 import ToDoApp from './components/ToDoApp'
+import UserApp from './components/users/UserApp'
 
 require('./index.html')
 var render = function() {
@@ -16,6 +17,7 @@ var render = function() {
 					<Route path="/todo" component={ToDoApp}>
 						<Route path="/todo/:filter" component={ToDoApp} />
 					</Route>
+					<Route path="/user" component={UserApp}/>
 				</Route>
 			</Router>
 		</Provider>
