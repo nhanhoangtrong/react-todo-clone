@@ -1,11 +1,17 @@
-var express = require('express')
-var path = require('path')
-var app = express()
+var app = require('./app.js')
+var http = require('http')
 
-app.use(express.static(path.dirname(__dirname)))
+// Get the port from arguments
+var port = Number(process.argv[2] || 8080)
+app.set('port', port)
 
-app.get('/', function(req, res) {
-	
+// Create a HTTP Server and pass the app to it
+var server = http.createServer(app)
+server.listen(port)
+
+server.on('listening', function() {
+	console.log('listening on port: ' + port)
 })
-
-app.listen(Number(process.argv[2] || 8080))
+server.on('error', function(err) {
+	console.error(err)
+})

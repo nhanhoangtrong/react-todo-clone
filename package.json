@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "watch": "webpack-dev-server --hot --inline",
+    "server": "node src/server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
