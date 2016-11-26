@@ -1,5 +1,5 @@
 import React from 'react'
-import ToDoItem from './ToDoItem'
+import Todo from './Todo'
 import {
 	connect
 } from 'react-redux'
@@ -7,7 +7,7 @@ import {
 	editTodoActionCreator,
 	markTodoActionCreator,
 	removeTodoActionCreator
-} from '../redux/action_creators/todo_action_creators'
+} from '../../redux/action_creators/todo_action_creators'
 
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
@@ -25,9 +25,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	}
 }
 
-const EditableToDoItem = connect(
+const EditableTodo = connect(
 	null,
 	mapDispatchToProps
-)(ToDoItem)
+)(Todo)
 
-export default EditableToDoItem
+export default EditableTodo

@@ -1,5 +1,5 @@
 import { ADD_TODO, EDIT_TODO, REMOVE_TODO, MARK_TODO } from '../action_types/todo_action_types'
-import { REMOVE_DAY } from '../action_types/day_action_types'
+import { REMOVE_LIST } from '../action_types/list_action_types'
 
 module.exports = function(todos = [], action) {
 	switch (action.type) {
@@ -10,7 +10,7 @@ module.exports = function(todos = [], action) {
 				{
 					id: new_id,
 					text: action.text,
-					day_id: action.day_id,
+					_list: action._list,
 					completed: false
 				}
 			]
@@ -35,10 +35,10 @@ module.exports = function(todos = [], action) {
 				}
 				return todo
 			}))
-		case REMOVE_DAY:
+		case REMOVE_LIST:
 			return todos.filter( (todo) => {
-				// Remove all todos in this day
-				return todo.day_id !== action.id
+				// Remove all todos in this list
+				return todo._list !== action.id
 			})
 		default:
 			return todos

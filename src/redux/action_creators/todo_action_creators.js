@@ -1,10 +1,10 @@
 import { ADD_TODO, EDIT_TODO, REMOVE_TODO, MARK_TODO } from '../action_types/todo_action_types'
 
 module.exports = {
-	addTodoActionCreator: function(text, day_id) {
+	addTodoActionCreator: function(text, _list) {
 		return {
 			type: ADD_TODO,
-			day_id: day_id,
+			_list: _list,
 			text: text
 		}
 	},

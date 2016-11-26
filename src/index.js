@@ -5,8 +5,8 @@ import { Provider } from 'react-redux'
 import todoStore from './redux/todo_store'
 
 import App from './components/App'
-import ToDoApp from './components/ToDoApp'
-import UserApp from './components/users/UserApp'
+import TodoApp from './components/apps/TodoApp'
+import UserApp from './components/apps/UserApp'
 
 require('./index.html')
 var render = function() {
@@ -14,8 +14,8 @@ var render = function() {
 		<Provider store={todoStore}>
 			<Router history={hashHistory}>
 				<Route path="/" component={App}>
-					<Route path="/todo" component={ToDoApp}>
-						<Route path="/todo/:filter" component={ToDoApp} />
+					<Route path="/todo" component={TodoApp}>
+						<Route path="/todo/:filter" component={TodoApp} />
 					</Route>
 					<Route path="/user" component={UserApp}/>
 				</Route>

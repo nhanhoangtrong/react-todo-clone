@@ -7,9 +7,9 @@ border_color_active = #BC5C74
 button_background = #E4BCA4FF
 button_background_hover = #ECCFA1
 
-tododay_header_background = #DADF70
-tododay_border_color = #F2CC7B
-tododay_background_color = #FFE5FB
+todolist_header_background = #DADF70
+todolist_border_color = #F2CC7B
+todolist_background_color = #FFE5FB
 
 todoitem_active_border_color = #BC5C74
 
@@ -72,7 +72,7 @@ a
 	.navBar
 		flexbox()
 		justify-content center
-		background-color tododay_header_background
+		background-color todolist_header_background
 		padidng-left 10px
 		padidng-right 10px
 		a
@@ -81,20 +81,20 @@ a
 			&.active
 				background-color link_background_active_color
 
-.todoDayList
-	.todoDayListBottom
+.todoListCatalog
+	.todoListCatalogBottom
 		text-align center
 
-.todoDay
+.todoList
 	display block
 	max-width 50%
 	margin: 10px auto
-	background-color tododay_background_color
-	.todoDayHeader
+	background-color todolist_background_color
+	.todoListHeader
 		text-align center
 		border-top-left-radius 4px
 		border-top-right-radius 4px
-		background-color tododay_header_background
+		background-color todolist_header_background
 		input[type="text"]
 			display block
 			font-weight bold
@@ -126,7 +126,7 @@ a
 			margin 0
 			padding-left 4px
 			border none
-			background tododay_background_color
+			background todolist_background_color
 			&:focus, &:active
 				outline none
 				border-bottom 1px solid todoitem_active_border_color

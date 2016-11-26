@@ -1,6 +1,6 @@
 import React from 'react'
-import style from '../style/style.styl'
-import todoStore from '../redux/todo_store'
+import style from '../../style/style.styl'
+import todoStore from '../../redux/todo_store'
 
 export default React.createClass({
 	getInitialState: function() {

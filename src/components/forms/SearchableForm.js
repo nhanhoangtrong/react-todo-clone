@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import React from 'react'
-import { searchTodoActionCreator, searchNoneActionCreator } from '../redux/action_creators/search_action_creators'
-import style from '../style/style.styl'
+import { searchTodoActionCreator, searchNoneActionCreator } from '../../redux/action_creators/search_action_creators'
+import style from '../../style/style.styl'
 
 const mapDispatchToProps = function(dispatch, ownProps) {
 	return {
@@ -15,8 +15,8 @@ const mapDispatchToProps = function(dispatch, ownProps) {
 }
 
 const SearchableForm = connect(
-                               null,
-                               mapDispatchToProps
+	null,
+	mapDispatchToProps
 )(React.createClass({
 	handleSearch: function(e) {
 		if (e.target.value.length > 0) {

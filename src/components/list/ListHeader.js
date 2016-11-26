@@ -1,18 +1,18 @@
 import React from 'react'
-import style from '../style/style.styl'
-import store from '../redux/todo_store'
+import style from '../../style/style.styl'
+import store from '../../redux/todo_store'
 
 export default React.createClass({
 	getInitialState: function() {
 		return {
-			date: this.props.date.getDate(),
-			year: this.props.date.getFullYear(),
-			month: this.props.date.getMonth(),
-			dates: [...Array(this.getMaxDate(this.props.date.getMonth(),
-			                                  this.props.date.getFullYear())).keys()]
+			title: this.props.title.getDate(),
+			year: this.props.title.getFullYear(),
+			month: this.props.title.getMonth(),
+			titles: [...Array(this.getMaxTitle(this.props.title.getMonth(),
+			                                  this.props.title.getFullYear())).keys()]
 		}
 	},
-	getMaxDate: function(month, year) {
+	getMaxTitle: function(month, year) {
 		var isLeapYear = (year % 400 === 0) ||((year % 4 === 0) && (year % 100 !== 0))
 		switch (month) {
 			case 0:
@@ -34,13 +34,13 @@ export default React.createClass({
 				return 30
 		}
 	},
-	handleOnSelectDate: function(e) {
+	handleOnSelectTitle: function(e) {
 		try {
-			var date = Number(e.target.value)
-			var maxDate = this.getMaxDate(this.state.month, this.state.year)
-			if (date > 0 && date <= maxDate) {
-				this.setState({date: date})
-				this.props.onEditDateSubmit(new Date(this.state.year, this.state.month, date))
+			var title = Number(e.target.value)
+			var maxTitle = this.getMaxTitle(this.state.month, this.state.year)
+			if (title > 0 && title <= maxTitle) {
+				this.setState({title: title})
+				this.props.onEditTitleSubmit(new Title(this.state.year, this.state.month, title))
 			}
 		} catch (err) {
 		}
@@ -49,15 +49,15 @@ export default React.createClass({
 	handleOnSelectMonth: function(e) {
 		try {
 			var month = Number(e.target.value)
-			var maxDate = this.getMaxDate(month, this.state.year)
-			var dates = [...Array(maxDate).keys()]
+			var maxTitle = this.getMaxTitle(month, this.state.year)
+			var titles = [...Array(maxTitle).keys()]
 			if (month >= 0 && month < 12) {
-				var date = this.state.date
-				if (date > maxDate) {
-					date = maxDate
+				var title = this.state.title
+				if (title > maxTitle) {
+					title = maxTitle
 				}
-				this.setState({month: month, date: date, dates: dates})
-				this.props.onEditDateSubmit(new Date(this.state.year, month, date))
+				this.setState({month: month, title: title, titles: titles})
+				this.props.onEditTitleSubmit(new Title(this.state.year, month, title))
 			}
 		} catch (err) {
 
@@ -66,14 +66,14 @@ export default React.createClass({
 	handleOnSelectYear: function(e) {
 		try {
 			var year = Number(e.target.value)
-			var maxDate = this.getMaxDate(this.state.month, year)
-			var date = this.state.date
-			var dates = [...Array(maxDate).keys()]
-			if (date > maxDate) {
-				date = maxDate
+			var maxTitle = this.getMaxTitle(this.state.month, year)
+			var title = this.state.title
+			var titles = [...Array(maxTitle).keys()]
+			if (title > maxTitle) {
+				title = maxTitle
 			}
-			this.setState({year: year, date: date, dates: dates})
-			this.props.onEditDateSubmit(new Date(year, this.state.month, date))
+			this.setState({year: year, title: title, titles: titles})
+			this.props.onEditTitleSubmit(new Title(year, this.state.month, title))
 		} catch (err) {
 
 		}
@@ -86,10 +86,10 @@ export default React.createClass({
 	render: function() {
 		console.log(store.getState())
 		return (
-	        <div className={style.todoDayHeader}>
-	        	<select name="date" onChange={this.handleOnSelectDate} value={this.state.date}>
-	        		{this.state.dates.map( (date) => {
-	        			return (<option value={date + 1} key={date}>{date + 1}</option>)
+	        <div className={style.todoListHeader}>
+	        	<select name="title" onChange={this.handleOnSelectTitle} value={this.state.title}>
+	        		{this.state.titles.map( (title) => {
+	        			return (<option value={title + 1} key={title}>{title + 1}</option>)
 	        		})}
 	        	</select>
 	        	<select name="month" onChange={this.handleOnSelectMonth} value={this.state.month}>

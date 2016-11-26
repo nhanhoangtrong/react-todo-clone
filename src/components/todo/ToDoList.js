@@ -1,6 +1,6 @@
 import React from 'react'
-import style from '../style/style.styl'
-import EditableToDoItem from './EditableToDoItem.js'
+import style from '../../style/style.styl'
+import EditableTodo from './EditableTodo.js'
 
 export default  React.createClass({
   render: function() {
@@ -8,7 +8,7 @@ export default  React.createClass({
       <ul className={style.todoList}>
         {this.props.todos.map( (todo) => {
           return (
-            <EditableToDoItem todoText={todo.text} todoCompleted={todo.completed} todoId={todo.id} key={todo.id}/>
+            <EditableTodo todoText={todo.text} todoCompleted={todo.completed} todoId={todo.id} key={todo.id}/>
           )
         })}
       </ul>
