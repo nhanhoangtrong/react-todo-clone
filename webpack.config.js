@@ -35,7 +35,7 @@ module.exports = {
       },
       {
         test: /\.styl$/,
-        loader: ExtractTextPlugin.extract(['css?modules&sourceMap', 'postcss', 'stylus' ])
+        loader: ExtractTextPlugin.extract(['css?modules&sourceMap&localIdentName=[local]', 'postcss', 'stylus' ])
       }
     ]
   },
