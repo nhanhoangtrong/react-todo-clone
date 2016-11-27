@@ -9,7 +9,7 @@ import ListHeader from './ListHeader'
 
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
-		onEditDateSubmit: (title) => {
+		onEditTitleSubmit: (title) => {
 			dispatch(editList(ownProps.list.id, title))
 		},
 		onClickRemove: () => {

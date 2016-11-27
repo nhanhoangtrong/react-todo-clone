@@ -5,7 +5,7 @@ import FilterableList from './FilterableList'
 export default React.createClass({
 	handleAdd: function(e) {
 		e.preventDefault()
-		var title = new Date()
+		var title = ""
 		this.props.onCreateList(title)
 	},
 	render: function() {
