@@ -1,6 +1,5 @@
 import React from 'react'
 import style from '../../style/style.styl'
-import store from '../../redux/todo_store'
 
 export default React.createClass({
 	getInitialState: function() {
@@ -84,25 +83,9 @@ export default React.createClass({
 		this.props.onClickRemove()
 	},
 	render: function() {
-		console.log(store.getState())
 		return (
-	        <div className={style.todoListHeader}>
-	        	<select name="title" onChange={this.handleOnSelectTitle} value={this.state.title}>
-	        		{this.state.titles.map( (title) => {
-	        			return (<option value={title + 1} key={title}>{title + 1}</option>)
-	        		})}
-	        	</select>
-	        	<select name="month" onChange={this.handleOnSelectMonth} value={this.state.month}>
-	        		{[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map( (month) => {
-	        			return (<option value={month} key={month}>{month + 1}</option>)
-	        		})}
-	        	</select>
-	        	<select name="year" onChange={this.handleOnSelectYear} value={this.state.year}>
-	        		<option value={2015}>2015</option>
-	        		<option value={2016}>2016</option>
-	        		<option value={2017}>2017</option>
-	        		<option value={2018}>2018</option>
-	        	</select>
+	        <div className={style.listHeader}>
+	        	<input type="text" placeholder="Click to edit list name"/>
 	        	<a href="#" className={style.iconButton} onClick={this.handleOnRemove}><span className={style.iconButtonRemove}/></a>
 	        </div>
         )

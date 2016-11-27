@@ -7,9 +7,9 @@ border_color_active = #BC5C74
 button_background = #E4BCA4FF
 button_background_hover = #ECCFA1
 
-todolist_header_background = #DADF70
-todolist_border_color = #F2CC7B
-todolist_background_color = #FFE5FB
+list_header_background = #DADF70
+list_border_color = #F2CC7B
+list_background_color = #FFE5FB
 
 todoitem_active_border_color = #BC5C74
 
@@ -72,7 +72,7 @@ a
 	.navBar
 		flexbox()
 		justify-content center
-		background-color todolist_header_background
+		background-color list_header_background
 		padidng-left 10px
 		padidng-right 10px
 		a
@@ -81,22 +81,22 @@ a
 			&.active
 				background-color link_background_active_color
 
-.todoListCatalog
-	.todoListCatalogBottom
+.listCatalog
+	.listCatalogBottom
 		text-align center
-
-.todoList
+.listWrapper
 	display block
 	max-width 50%
 	margin: 10px auto
-	background-color todolist_background_color
-	.todoListHeader
+	background-color list_background_color
+	.listHeader
+		flexbox()
 		text-align center
 		border-top-left-radius 4px
 		border-top-right-radius 4px
-		background-color todolist_header_background
+		background-color list_header_background
 		input[type="text"]
-			display block
+			flex 1 auto
 			font-weight bold
 			font-size 1.5em
 			text-align center
@@ -108,7 +108,7 @@ a
 				border-color border_color_active
 
 
-	.todoList
+	.list
 		list-style none
 		padding 10px 20px
 		li
@@ -118,7 +118,7 @@ a
 		li:last-child
 			border-bottom none
 
-	.todoItem
+	.todo
 		flexbox()
 		flex-flow row nowrap
 		input[type="text"]
@@ -126,7 +126,7 @@ a
 			margin 0
 			padding-left 4px
 			border none
-			background todolist_background_color
+			background list_background_color
 			&:focus, &:active
 				outline none
 				border-bottom 1px solid todoitem_active_border_color

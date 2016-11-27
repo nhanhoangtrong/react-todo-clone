@@ -10,13 +10,13 @@ export default React.createClass({
 	},
 	render: function() {
 		return (
-			<div className={style.todoListCatalog}>
+			<div className={style.listCatalog}>
 				{this.props.lists.map( list => {
 					return (
 						<FilterableList list={list} key={list.id} />
 					)
 				})}
-				<div className={style.todoListCatalogBottom}>
+				<div className={style.listCatalogBottom}>
 					<a href="#" className={style.button} onClick={this.handleAdd}>Add</a>
 				</div>
 			</div>

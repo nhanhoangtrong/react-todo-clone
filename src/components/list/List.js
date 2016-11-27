@@ -9,7 +9,7 @@ import { addTodoActionCreator, markTodoActionCreator } from '../../redux/action_
 var List = React.createClass({
   render: function() {
     return (
-      <div className={style.todoList}>
+      <div className={style.listWrapper}>
         <EditableListHeader list={this.props.list} title={this.props.list.title}/>
         <TodoList todos={this.props.todos}/>
         <SubmitableTodoForm _list={this.props.list.id}/>

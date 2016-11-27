@@ -29,7 +29,7 @@ export default React.createClass({
 		var buttonCheckClass = this.props.todoCompleted ? style.iconButtonUncheck : style.iconButtonCheck
 		return (
 			<li>
-				<div className={style.todoItem}>
+				<div className={style.todo}>
 					<div className={style.todoButtons}>
 							<a href="#" className={style.iconButton} onClick={this.props.onClickMarkTodo}><span className={buttonCheckClass}/></a>
 

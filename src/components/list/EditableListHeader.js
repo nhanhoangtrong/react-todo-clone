@@ -7,7 +7,6 @@ import {
 } from '../../redux/action_creators/list_action_creators'
 import ListHeader from './ListHeader'
 
-
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		onEditDateSubmit: (title) => {
