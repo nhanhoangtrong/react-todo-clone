@@ -68,4 +68,27 @@ router.post('/update', function(req, res, next) {
 	})
 })
 
+router.post('/remove', function(req, res, next) {
+	// Connect to database
+	var db = mongoose.connect('mongodb://localhost:27017/todo-clone', function(err) {
+		if (err) {
+			console.error("connection failed", err)
+			res.sendStatus(500)
+		} else {
+			// when successfully connect
+			// try to get any match user
+			User.remove({_id: req.body._id}, function(err, raw) {
+				console.log(raw)
+				if (err) {
+					console.log('remove user error', err)
+					res.status(400).send(err.message)
+				} else {
+					res.send("User deleted " + req.body.username)
+				}
+				db.disconnect()
+			})
+		}
+	})
+})
+
 module.exports = router
