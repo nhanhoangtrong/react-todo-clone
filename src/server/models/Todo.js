@@ -10,12 +10,16 @@ var todoSchema = new Schema({
 		type: Boolean,
 		default: false
 	},
+	order: Number,
+	due: Date,
 	_user: {
 		type: Schema.Types.ObjectId,
 		ref: 'User'
 	},
-	order: Number,
-	due: Date
+	_list: {
+		type: Schema.Types.ObjectId,
+		ref: 'List'
+	}
 })
 
 todoSchema.pre('save', function(next) {

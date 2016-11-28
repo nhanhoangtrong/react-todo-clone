@@ -8,12 +8,10 @@ var folderSchema = new Schema({
 		required: true
 	},
 	order: Number,
-	_lists: [
-		{
-			type: Schema.Types.ObjectId,
-			ref: 'List'
-		}
-	]
+	_user: {
+		type: Schema.Types.ObjectId,
+		ref: 'User'
+	}
 })
 
 module.exports = mongoose.model('Folder', folderSchema)

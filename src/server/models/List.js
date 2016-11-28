@@ -12,10 +12,10 @@ var listSchema = new Schema({
 		type: Schema.Types.ObjectId,
 		ref: 'User'
 	},
-	_todos: [{
+	_folder: {
 		type: Schema.Types.ObjectId,
-		ref: 'Todo'
-	}]
+		ref: 'Folder'
+	}
 })
 
 module.exports = mongoose.model('List', listSchema)
