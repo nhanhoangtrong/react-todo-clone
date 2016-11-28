@@ -26,7 +26,7 @@ todoSchema.pre('save', function(next) {
 	next()
 })
 
-todoSchema.methods.setDueDay = function(Date date) {
+todoSchema.methods.setDueDay = function(date) {
 	this.due = date
 }
 

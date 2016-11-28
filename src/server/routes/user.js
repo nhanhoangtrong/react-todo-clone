@@ -1,13 +1,13 @@
 var express = require('express')
 var router = express.Router()
 var bodyParser = require('body-parser')
-var mongoose = require('mongoose')
+var connectdb = require('../connectdb')
 
-var User = require('../models/User.js')
+var User = require('../models/User')
 
 router.use(bodyParser.json())
 router.post('/create', function(req, res, next) {
-	var db = mongoose.connect('mongodb://localhost:27017/todo-clone', function(err) {
+	var db = connectdb(function(err) {
 		if (err) {
 			console.error("connection failed", err)
 			res.sendStatus(500)
@@ -40,9 +40,9 @@ router.post('/create', function(req, res, next) {
 	})
 })
 
-router.post('/update', function(req, res, next) {
+router.put('/update', function(req, res, next) {
 	// Connect to database
-	var db = mongoose.connect('mongodb://localhost:27017/todo-clone', function(err) {
+	var db = connectdb(function(err) {
 		if (err) {
 			console.error("connection failed", err)
 			res.sendStatus(500)
@@ -50,6 +50,7 @@ router.post('/update', function(req, res, next) {
 			// when successfully connect
 			// try to get any match user
 			User.update({username: req.body.username}, {
+				password: req.body.password,
 				email: req.body.email,
 				is_admin: (req.body.is_admin || false)
 			}, {
@@ -68,16 +69,16 @@ router.post('/update', function(req, res, next) {
 	})
 })
 
-router.post('/remove', function(req, res, next) {
+router.delete('/remove', function(req, res, next) {
 	// Connect to database
-	var db = mongoose.connect('mongodb://localhost:27017/todo-clone', function(err) {
+	var db = connectdb(function(err) {
 		if (err) {
 			console.error("connection failed", err)
 			res.sendStatus(500)
 		} else {
 			// when successfully connect
 			// try to get any match user
-			User.remove({_id: req.body._id}, function(err, raw) {
+			User.findByIdAndRemove(req.body._id, function(err, raw) {
 				console.log(raw)
 				if (err) {
 					console.log('remove user error', err)

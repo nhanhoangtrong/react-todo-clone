@@ -1,10 +1,12 @@
 var mongoose = require('mongoose')
+var crypto = require('../crypto')
 
 // Create user schema
 var userSchema = new mongoose.Schema({
 	name: String,
 	username: { type: String, required: true, unique: true },
 	password: { type: String, required: true },
+	auth_token: { type: String },
 	email: { type: String, required: true, unique: true},
 	is_admin: { type: Boolean, default: false },
 	meta: {
@@ -25,8 +27,12 @@ userSchema.pre('save', function(next) {
   this.updated = currentDay
 
   // Check if created exists or not
+  // If not, this is the first time user was created
   if (!this.created) {
     this.created = currentDay
+
+	// Generate authentication token
+	this.auth_token = crypto.hmac(this.password)
   }
   next()
 })
