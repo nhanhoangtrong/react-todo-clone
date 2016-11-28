@@ -1,13 +1,15 @@
 var express = require('express')
 var path = require('path')
 var app = express()
-var users = require('./routes/users')
-var todos = require('./routes/todos')
+var user = require('./routes/user')
+var todo = require('./routes/todo')
+var profile = require('./routes/profile')
 
 app.use(express.static(path.dirname(__dirname, 'static')))
 
-app.use('/todos', todos)
-app.use('/users', users)
+app.use('/api/todo', todo)
+app.use('/api/user', user)
+app.use('/api/profile', profile)
 
 app.get('/hello', function(req, res) {
 	res.send("Hello World!")

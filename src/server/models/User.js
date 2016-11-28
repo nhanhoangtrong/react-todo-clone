@@ -5,6 +5,7 @@ var userSchema = new mongoose.Schema({
 	name: String,
 	username: { type: String, required: true, unique: true },
 	password: { type: String, required: true },
+	email: { type: String, required: true, unique: true},
 	is_admin: { type: Boolean, default: false },
 	meta: {
 		age: Number,
@@ -29,7 +30,9 @@ userSchema.pre('save', function(next) {
   }
   next()
 })
-
+userSchema.methods.isAdmin = function() {
+	return this.is_admin
+}
 
 // Create model from schema
 var User = mongoose.model('User', userSchema)
