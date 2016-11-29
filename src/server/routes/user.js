@@ -2,7 +2,7 @@ var express = require('express')
 var router = express.Router()
 var bodyParser = require('body-parser')
 var connectdb = require('../connectdb')
-
+var { checkAdmin } = require('../middlewares')
 var User = require('../models/User')
 
 router.use(bodyParser.json())

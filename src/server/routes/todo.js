@@ -4,13 +4,14 @@ var connectdb = require('../connectdb')
 var Todo = require('../models/Todo')
 var User = require('../models/User')
 var bodyParser = require('body-parser')
+var { checkAuthenticate } = require('../middlewares')
 
 router.use(bodyParser.json())
 
 // TODO: using token for authentication
 
 // Get all todos by user
-router.get('/all', function(req, res, next) {
+router.get('/all', checkAuthenticate, function(req, res, next) {
     // Get all todo by username
     var db = connectdb(function(err) {
         if (err) {
@@ -32,7 +33,7 @@ router.get('/all', function(req, res, next) {
 })
 
 // Create todo
-router.post('/create', function(req, res, next) {
+router.post('/create', checkAuthenticate, function(req, res, next) {
     var db = connectdb(function(err) {
         if (err) {
             console.error(err)
@@ -40,7 +41,7 @@ router.post('/create', function(req, res, next) {
         } else {
             var todo = new Todo({
                 text: req.body.text,
-                _user: req.body._id,
+                _user: req.body._user,
                 order: req.body.order,
                 completed: (req.body.completed || false)
             })
@@ -52,6 +53,32 @@ router.post('/create', function(req, res, next) {
                     res.status(200).send(obj)
                     db.disconnect()
                 }
+            })
+        }
+    })
+})
+
+// Remove Todo
+router.delete('/remove', checkAuthenticate, function(req, res, next) {
+    // connect to database
+    var db = connectdb(function(err) {
+        if (err) {
+            console.error(err)
+            res.sendStatus(500)
+        } else {
+            Todo.findByIdAndRemove(req.body._id, function(err, raw) {
+                if (err) {
+                    console.error(err)
+                    res.sendStatus(500)
+                } else {
+                    if (raw) {
+                        console.log(raw)   
+                    } else {
+                        
+                    }
+                    res.status(200).send('Todo removed')
+                }
+                db.disconnect()
             })
         }
     })
