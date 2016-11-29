@@ -3,6 +3,26 @@ var router = express.Router()
 var connectdb = require('../connectdb')
 var User = require('../models/User')
 
+router.get('/', function(req, res, next) {
+	// Get all users
+	var db = connectdb(function(err) {
+		if (err) {
+			console.error(err)
+			res.sendStatus(500)
+		} else {
+			User.find({}, function(err, users) {
+				if (err) {
+					console.error(err)
+					res.sendStatus(500)
+				} else {
+					res.json(users)
+				}
+				db.disconnect()
+			})
+		}
+	})
+})
+
 router.get('/:username', function(req, res, next) {
 	// Connect to database
 	var db = connectdb(function(err) {
