@@ -2,6 +2,8 @@ process.env.NODE_ENV = 'test'
 
 let connectdb = require('../src/server/connectdb')
 let User = require('../src/server/models/User')
+let Folder = require('../src/server/models/Folder')
+let List = require('../src/server/models/List')
 
 let chai = require('chai')
 let chaiHttp = require('chai-http')
@@ -35,10 +37,10 @@ describe('User', () => {
     // Test the POST route
     describe('/POST user', () => {
         let user = {
-            username: "admin",
-            password: "admin",
-            email   : "admin@email.com",
-            is_admin: true
+            username: "user1",
+            password: "user1",
+            email   : "user1@email.com",
+            is_admin: false
         }
         it('it should POST a new user', (done) => {
             chai.request(server)
@@ -57,13 +59,41 @@ describe('User', () => {
     describe('/GET profile', () => {
         it('it should GET an user profile', (done) => {
             chai.request(server)
-                .get('/api/profile/admin')
+                .get('/api/profile/user1')
                 .end( (err, res) => {
                     res.should.have.status(200)
                     res.body.should.have.property('_id')
                     res.body._id.should.be.a('string')
+                    res.body.username.should.equal('user1')
                     done()
                 })
         })
     })
+})
+
+describe('Folder and List', () => {
+
+    // Clean all folders and lists
+    before( (done) => {
+        List.remove({}, function(err) {
+            Folder.remove({}, function(err) {
+                done()
+            })
+        })
+    })
+
+    // Test GET all folder
+    describe('/GET folder', () => {
+        it('it should GET a empty folder list', (done) => {
+            chai.request(server)
+                .get('/api/folder')
+                .end( (err, res) => {
+                    res.should.have.status(200)
+                    res.body.should.be.a('array')
+                    done()
+                })
+        })
+    })
+
+    // Test POST an folder
 })
