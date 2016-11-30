@@ -4,6 +4,9 @@ var app = express()
 var user = require('./routes/user')
 var todo = require('./routes/todo')
 var profile = require('./routes/profile')
+var connectdb = require('./connectdb')
+
+connectdb()
 
 app.use(express.static(path.dirname(__dirname, 'static')))
 

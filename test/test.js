@@ -15,12 +15,8 @@ server.listen(8080)
 
 describe('User', () => {
     before( (done) => {
-        // Before each test, we empty the database
-        var db = connectdb( (err) => {
-            User.remove({}, (err) => {
-                db.disconnect()
-                done()
-            })
+        User.remove({}, (err) => {
+            done()
         })
     })
 
