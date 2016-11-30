@@ -3,10 +3,7 @@ var router = express.Router()
 var connectdb = require('../connectdb')
 var Todo = require('../models/Todo')
 var User = require('../models/User')
-var bodyParser = require('body-parser')
 var { checkAuthenticate } = require('../middlewares')
-
-router.use(bodyParser.json())
 
 // TODO: using token for authentication
 
@@ -49,7 +46,7 @@ router.delete('/remove', checkAuthenticate, function(req, res, next) {
             res.sendStatus(500)
         } else {
             if (raw) {
-                console.log(raw)   
+                
             } else {
                 
             }

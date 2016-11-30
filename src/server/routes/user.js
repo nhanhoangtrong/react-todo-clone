@@ -1,11 +1,9 @@
 var express = require('express')
 var router = express.Router()
-var bodyParser = require('body-parser')
 var connectdb = require('../connectdb')
 var { checkAdmin } = require('../middlewares')
 var User = require('../models/User')
 
-router.use(bodyParser.json())
 router.post('/create', function(req, res, next) {
 	// try to get any match user
 	User.find({}, function(err, users) {
@@ -39,7 +37,6 @@ router.put('/update', function(req, res, next) {
 	}, {
 		runValidators: true
 	},function(err, raw) {
-		console.log(raw)
 		if (err) {
 			console.log('update user error', err)
 			res.status(400).send(err.message)
@@ -52,7 +49,6 @@ router.put('/update', function(req, res, next) {
 router.delete('/remove', function(req, res, next) {
 	// try to get any match user
 	User.findByIdAndRemove(req.body._id, function(err, raw) {
-		console.log(raw)
 		if (err) {
 			console.log('remove user error', err)
 			res.status(400).send(err.message)

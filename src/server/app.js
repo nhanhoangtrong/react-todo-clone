@@ -1,14 +1,23 @@
 var express = require('express')
 var path = require('path')
 var app = express()
+
+// Database connection
+var connectdb = require('./connectdb')
+
+// Middlewares
+var bodyParser = require('body-parser')
+
+// All routes
 var user = require('./routes/user')
 var todo = require('./routes/todo')
 var profile = require('./routes/profile')
-var connectdb = require('./connectdb')
 
 connectdb()
 
 app.use(express.static(path.dirname(__dirname, 'static')))
+
+app.use('/api', bodyParser.json())
 
 app.use('/api/todo', todo)
 app.use('/api/user', user)
