@@ -23,7 +23,7 @@ describe('User', () => {
     })
 
     // Test the GET route
-    describe('/GET profile', () => {
+    describe('/GET admin profile', () => {
         it('it should GET user profile', (done) => {
             chai.request(server)
                 .get('/api/profile/admin')
@@ -44,7 +44,7 @@ describe('User', () => {
         }
         it('it should POST a new user', (done) => {
             chai.request(server)
-                .post('/api/user/create')
+                .post('/api/user/')
                 .send(user)
                 .end((err, res) => {
                     res.should.have.status(200)
@@ -130,6 +130,25 @@ describe('Folder and List', () => {
                 .end((err, res) => {
                     res.should.have.status(200)
                     res.body.should.be.a('array')
+                    done()
+                })
+        })
+    })
+
+    // Test POST a new List
+    describe('/POST list', () => {
+        it('it should POST a new list', (done) => {
+            let list = {
+                title: "It's a new list",
+                order: 1,
+                _user: _user
+            }
+            chai.request(server)
+                .post('/api/list')
+                .send(list)
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.body.should.be.a('object')
                     done()
                 })
         })

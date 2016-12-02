@@ -27,8 +27,8 @@ router.route('/')
 			console.error(err)
 			res.sendStatus(500)
 		} else {
-			console.log(raw)
-			res.status(200).send()
+			// console.log(raw)
+			res.status(200).json(list)
 		}
 	})
 })
