@@ -6,12 +6,6 @@ var User = require('../models/User')
 
 router.post('/create', function(req, res, next) {
 	// try to get any match user
-	User.find({}, function(err, users) {
-		console.log(users)
-		// while (users.hasNext()) {
-		// 	console.log(users.next())
-		// }
-	})
 	var user = new User({
 		username: req.body.username,
 		password: req.body.password,
