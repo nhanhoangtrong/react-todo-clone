@@ -7,8 +7,12 @@ var { checkAuthenticate } = require('../middlewares')
 
 // TODO: using token for authentication
 
-// Get all todos by user
-router.get(checkAuthenticate, function(req, res, next) {
+router.route('/')
+.all(checkAuthenticate, function(req, res, next) {
+    next()
+})
+.get(function(req, res, next) {
+    // Get all todos by user
     Todo.find({_user: req.query.id}, function(err, todos) {
         if (err) {
             console.error(err)
@@ -19,13 +23,14 @@ router.get(checkAuthenticate, function(req, res, next) {
         }
     })
 })
-
-// Create todo
-router.post('/create', checkAuthenticate, function(req, res, next) {
+.post(function(req, res, next) {
+    // Create todo
     var todo = new Todo({
         text: req.body.text,
+        _list: req.body._list,
         _user: req.body._user,
         order: req.body.order,
+        due: req.body.due,
         completed: (req.body.completed || false)
     })
     todo.save(function(err, obj) {
@@ -38,8 +43,36 @@ router.post('/create', checkAuthenticate, function(req, res, next) {
     })
 })
 
-// Remove Todo
-router.delete('/remove', checkAuthenticate, function(req, res, next) {
+router.route('/:todo_id')
+.get(function(req, res, next) {
+    Todo.findById(req.params.todo_id, function(err, todo) {
+        if (err) {
+            console.error(err)
+            res.status(400).send()
+        } else {
+            res.status(200).json(todo)
+        }
+    })
+})
+.put(function(req, res, next) {
+    Todo.findByIdAndUpdate(req.params.todo_id, {
+        text: request.body.text,
+        order: request.body.order,
+        due: request.body.due,
+        _list: req.body._list
+    }, {
+        runValidators: true
+    },function(err, raw) {
+        if (err) {
+            console.error(err)
+            res.status(400).send()
+        } else {
+            res.status(200).send()
+        }
+    })
+})
+.delete(function(req, res, next) {
+    // Remove Todo
     Todo.findByIdAndRemove(req.body._id, function(err, raw) {
         if (err) {
             console.error(err)

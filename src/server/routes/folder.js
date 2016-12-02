@@ -48,6 +48,8 @@ router.route('/:folder_id')
 	Folder.findByIdAndUpdate(req.params.folder_id, {
 		title: req.body.title,
 		order: req.body.order
+	}, {
+		runValidators: true
 	}, function(err, raw) {
 		if (err) {
 			console.error(err)
@@ -63,7 +65,7 @@ router.route('/:folder_id')
 	Folder.findByIdAndRemove(req.params.folder_id, function(err, raw) {
 		if (err) {
 			console.error(err)
-			res.sendStatus(500)
+			res.sendStatus(400)
 		} else {
 			console.log(raw)
 			res.status(200).send()
