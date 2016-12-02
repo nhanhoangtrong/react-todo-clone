@@ -10,7 +10,8 @@ var listSchema = new Schema({
 	order: Number,
 	_user: {
 		type: Schema.Types.ObjectId,
-		ref: 'User'
+		ref: 'User',
+		required: true
 	},
 	_folder: {
 		type: Schema.Types.ObjectId,

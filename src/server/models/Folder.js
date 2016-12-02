@@ -10,7 +10,8 @@ var folderSchema = new Schema({
 	order: Number,
 	_user: {
 		type: Schema.Types.ObjectId,
-		ref: 'User'
+		ref: 'User',
+		required: true
 	}
 })
 
