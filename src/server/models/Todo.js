@@ -14,11 +14,13 @@ var todoSchema = new Schema({
 	due: Date,
 	_user: {
 		type: Schema.Types.ObjectId,
-		ref: 'User'
+		ref: 'User',
+		required: true
 	},
 	_list: {
 		type: Schema.Types.ObjectId,
-		ref: 'List'
+		ref: 'List',
+		required: true
 	}
 })
 
