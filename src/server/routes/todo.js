@@ -43,8 +43,24 @@ router.route('/')
     })
 })
 
+router.route('/mark/:todo_id')
+.put(function(req, res, next) {
+    // Mark a todo as completed or not completed
+    Todo.findByIdAndUpdate(req.params.todo_id, {
+        completed: req.body.completed
+    }, function(err, raw) {
+        if (err) {
+            console.error(err)
+            res.status(400).send()
+        } else {
+            res.status(200).send()
+        }
+    })
+})
+
 router.route('/:todo_id')
 .get(function(req, res, next) {
+    // Get a todo
     Todo.findById(req.params.todo_id, function(err, todo) {
         if (err) {
             console.error(err)
@@ -55,6 +71,7 @@ router.route('/:todo_id')
     })
 })
 .put(function(req, res, next) {
+    // update a todo
     Todo.findByIdAndUpdate(req.params.todo_id, {
         text: request.body.text,
         order: request.body.order,
@@ -72,16 +89,16 @@ router.route('/:todo_id')
     })
 })
 .delete(function(req, res, next) {
-    // Remove Todo
+    // Remove a Todo
     Todo.findByIdAndRemove(req.body._id, function(err, raw) {
         if (err) {
             console.error(err)
             res.sendStatus(500)
         } else {
             if (raw) {
-                
+
             } else {
-                
+
             }
             res.status(200).send('Todo removed')
         }
