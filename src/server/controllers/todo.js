@@ -1,5 +1,14 @@
 var Todo = require('../models/Todo')
 
+function getTodo(todo_id, cb) {
+    Todo.findById(todo_id, function(err, todo) {
+        if (err) {
+            return cb(err, null)
+        }
+        return cb(null, todo)
+    })
+}
+
 function createTodo(todo, cb) {
     var new_todo = new Todo({
         text: todo.text,
@@ -8,11 +17,11 @@ function createTodo(todo, cb) {
         _list: todo._list,
         _user: todo._user
     })
-    new_todo.save(function(err) {
+    new_todo.save(function(err, todo) {
         if (err) {
-            return cb(err)
+            return cb(err, null)
         }
-        return cb()
+        return cb(null, todo)
     })
 }
 
@@ -28,7 +37,7 @@ function editTodo(todo_id, todo, cb) {
         if (err) {
             return cb(err)
         }
-        return (cb)
+        return cb()
     })
 }
 
@@ -62,6 +71,7 @@ function removeTodoByList(list_id, cb) {
 }
 
 module,exports = {
+    getTodo,
     createTodo,
     editTodo,
     markTodo,

@@ -2,6 +2,15 @@ var User = require('../models/List')
 var { removeListByUser } = require('./list')
 var { removeFolderByUser } = require('./folder')
 
+function getUser(user_id, cb) {
+    User.findById(user_id, function(err, user) {
+        if (err) {
+            return cb(err, null)
+        }
+        return cb(null, user)
+    })
+}
+
 function createUser(user, cb) {
     var new_user = new User({
         first_name: user.first_name,
@@ -11,11 +20,11 @@ function createUser(user, cb) {
         is_admin: (user.is_admin || false),
         email: user.email
     })
-    new_user.save(function(err) {
+    new_user.save(function(err, user) {
         if (err) {
-            return cb(err)
+            return cb(err, null)
         }
-        return cb()
+        return cb(null, user)
     })
 }
 
@@ -60,4 +69,12 @@ function removeUser(user_id, cb) {
             return cb
         })
     })
+}
+
+module.exports = {
+    getUser,
+    createUser,
+    editUser,
+    changeUserPassword,
+    removeUser
 }

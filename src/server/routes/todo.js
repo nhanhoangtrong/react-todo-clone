@@ -5,6 +5,8 @@ var Todo = require('../models/Todo')
 var User = require('../models/User')
 var { checkAuthenticate } = require('../middlewares')
 
+var { getTodo, createTodo, removeTodo, editTodo } = require('../controllers/todo')
+
 // TODO: using token for authentication
 
 router.route('/')
@@ -25,20 +27,12 @@ router.route('/')
 })
 .post(function(req, res, next) {
     // Create todo
-    var todo = new Todo({
-        text: req.body.text,
-        _list: req.body._list,
-        _user: req.body._user,
-        order: req.body.order,
-        due: req.body.due,
-        completed: (req.body.completed || false)
-    })
-    todo.save(function(err, obj) {
+    createTodo(req.body, function(err, todo) {
         if (err) {
             console.error(err)
             res.sendStatus(400)
         } else {
-            res.status(200).send(obj)
+            res.status(200).send(todo)
         }
     })
 })
@@ -46,9 +40,7 @@ router.route('/')
 router.route('/mark/:todo_id')
 .put(function(req, res, next) {
     // Mark a todo as completed or not completed
-    Todo.findByIdAndUpdate(req.params.todo_id, {
-        completed: req.body.completed
-    }, function(err, raw) {
+    markTodo(req.params.todo_id, req.body.completed, function(err) {
         if (err) {
             console.error(err)
             res.status(400).send()
@@ -61,7 +53,7 @@ router.route('/mark/:todo_id')
 router.route('/:todo_id')
 .get(function(req, res, next) {
     // Get a todo
-    Todo.findById(req.params.todo_id, function(err, todo) {
+    getTodo(req.params.todo_id, function(err, todo) {
         if (err) {
             console.error(err)
             res.status(400).send()
@@ -72,14 +64,7 @@ router.route('/:todo_id')
 })
 .put(function(req, res, next) {
     // update a todo
-    Todo.findByIdAndUpdate(req.params.todo_id, {
-        text: request.body.text,
-        order: request.body.order,
-        due: request.body.due,
-        _list: req.body._list
-    }, {
-        runValidators: true
-    },function(err, raw) {
+    editTodo(req.params.todo_id, req.body, function(err) {
         if (err) {
             console.error(err)
             res.status(400).send()
@@ -90,17 +75,12 @@ router.route('/:todo_id')
 })
 .delete(function(req, res, next) {
     // Remove a Todo
-    Todo.findByIdAndRemove(req.body._id, function(err, raw) {
+    removeTodo(req.params.todo_id, function(err) {
         if (err) {
             console.error(err)
             res.sendStatus(500)
         } else {
-            if (raw) {
-
-            } else {
-
-            }
-            res.status(200).send('Todo removed')
+            res.status(200).send()
         }
     })
 })

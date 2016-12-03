@@ -1,9 +1,10 @@
 var express = require('express')
 var router = express.Router()
 var Folder = require('../models/Folder')
+var { getFolder, createFolder, editFolder, removeFolder } = require('../controllers/folder')
 
 router.route('/')
-.get(function(req, res) {
+.get(function(req, res, next) {
 	// Get all folder
 	Folder.find({}, function(err, folders) {
 		if (err) {
@@ -16,12 +17,7 @@ router.route('/')
 })
 .post(function(req, res, next) {
 	// Create a folder
-	var folder = new Folder({
-		title: req.body.title,
-		_user: req.body._user,
-		order: req.body.order
-	})
-	folder.save(function(err, raw) {
+	createFolder(req.body, function(err, folder) {
 		if (err) {
 			console.error(err)
 			res.sendStatus(400)
@@ -34,7 +30,7 @@ router.route('/')
 router.route('/:folder_id')
 .get(function(req, res, next) {
 	// Request a folder
-	Folder.findById(req.params.folder_id, function(err, folder) {
+	getFolder(req.params.folder_id, function(err, folder) {
 		if (err) {
 			console.error(err)
 			res.sendStatus(500)
@@ -45,12 +41,7 @@ router.route('/:folder_id')
 })
 .put(function(req, res, next) {
 	// Update a folder
-	Folder.findByIdAndUpdate(req.params.folder_id, {
-		title: req.body.title,
-		order: req.body.order
-	}, {
-		runValidators: true
-	}, function(err, raw) {
+	editFolder(req.params.folder_id, req.body, function (err) {
 		if (err) {
 			console.error(err)
 			res.sendStatus(500)
@@ -61,15 +52,16 @@ router.route('/:folder_id')
 	})
 })
 .delete(function(req, res, next) {
-	// Delete a folder
-	Folder.findByIdAndRemove(req.params.folder_id, function(err, raw) {
+	// First we need to find and remove all related lists
+	removeFolder(req.params.folder_id, function(err) {
 		if (err) {
 			console.error(err)
-			res.sendStatus(400)
+			res.status(400).send()
 		} else {
-			console.log(raw)
 			res.status(200).send()
 		}
 	})
+
 })
+
 module.exports = router

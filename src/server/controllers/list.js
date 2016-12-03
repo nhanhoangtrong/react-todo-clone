@@ -2,6 +2,15 @@ var Todo = require('../models/Todo')
 var List = require('../models/List')
 var { removeTodoByList } = require('./todo')
 
+function getList(list_id, cb) {
+    List.findById(list_id, function(err, list) {
+        if (err) {
+            return cb(err, null)
+        }
+        return cb(null, list)
+    })
+}
+
 function createList(list, cb) {
     var new_list = new List({
         title: list.title,
@@ -9,11 +18,11 @@ function createList(list, cb) {
         _user: list._user,
         _folder: list._folder
     })
-    new_list.save(function(err) {
+    new_list.save(function(err, list) {
         if (err) {
-            return cb(err)
+            return cb(err, null)
         }
-        return cb()
+        return cb(null, list)
     })
 }
 
@@ -83,6 +92,7 @@ function removeListByUser(user_id, cb) {
 }
 
 module.exports = {
+    getList,
     createList,
     editList,
     removeList,

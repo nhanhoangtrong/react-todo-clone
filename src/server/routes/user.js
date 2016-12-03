@@ -3,6 +3,7 @@ var router = express.Router()
 var connectdb = require('../connectdb')
 var { checkAdmin } = require('../middlewares')
 var User = require('../models/User')
+var { getUser, createUser, editUser, removeUser, changeUserPassword } = require('../controllers/user')
 
 router.route('/')
 .get(function(req, res, next) {
@@ -18,16 +19,10 @@ router.route('/')
 })
 .post(function(req, res, next) {
 	// Create a new user
-	var user = new User({
-		username: req.body.username,
-		password: req.body.password,
-		email: req.body.email,
-		is_admin: (req.body.is_admin || false)
-	})
-	user.save(function(err) {
+	createUser(req.body, function(err, user) {
 		if (err) {
-			console.error("user save error", err)
-			res.status(400).send(err.message)
+			console.error(err)
+			res.status(400).send()
 		} else {
 			res.send(user)
 		}
@@ -37,42 +32,35 @@ router.route('/')
 router.route('/:user_id')
 .get(function(req, res, next) {
 	// Get user detail
-	User.findById(req.params.user_id, function(err, users) {
+	getUser(req.params.user_id, function(err, user) {
 		if (err) {
 			console.log(err)
 			res.status(400).send()
 		} else {
-			res.status(200).json(users)
+			res.status(200).json(user)
 		}
 	})
 })
 .put(function(req, res, next) {
 	// Update a user
-	User.findByIdAndUpdate(req.params.user_id, {
-		password: req.body.password,
-		email: req.body.email,
-		is_admin: (req.body.is_admin || false)
-	}, {
-		runValidators: true
-	}, function(err, raw) {
+	editUser(req.params.user_id, req.body, function(err) {
 		if (err) {
-			console.log('update user error', err)
-			res.status(400).send(err.message)
+			console.log(err)
+			res.status(400).send()
 		} else {
-			res.sendStatus(200)
+			res.status(200).send()
 		}
 	})
 })
 .delete(function(req, res, next) {
 	// Remove a user
-	User.findByIdAndRemove(req.params.user_id, function(err, raw) {
+	removeUser(req.params.user_id, function(err) {
 		if (err) {
-			console.log('remove user error', err)
-			res.status(400).send(err.message)
+			console.log(err)
+			res.status(400).send()
 		} else {
-			res.send("User deleted " + req.body.username)
+			res.status(200).send()
 		}
-		db.disconnect()
 	})
 })
 

@@ -3,17 +3,26 @@ var List = require('../models/List')
 var Todo = require('../models/Todo')
 var { removeListByFolder } = require('./list')
 
+function getFolder(folder_id, cb) {
+    Folder.findById(folder_id, function(err, folder) {
+        if (err) {
+            return cb(err, null)
+        }
+        return cb(null, folder)
+    })
+}
+
 function createFolder(folder, cb) {
     var new_folder = new Folder({
         title: folder.title,
         order: folder.order,
         _user: folder._user
     })
-    new_folder.save(function(err) {
+    new_folder.save(function(err, folder) {
         if (err) {
-            return cb(err)
+            return cb(err, null)
         }
-        return cb()
+        return cb(null, folder)
     })
 }
 
@@ -63,6 +72,7 @@ function removeFolderByUser(user_id, cb) {
 }
 
 module.exports = {
+    getFolder,
     createFolder,
     editFolder,
     removeFolder,
