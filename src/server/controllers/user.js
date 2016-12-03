@@ -11,6 +11,15 @@ function getUser(user_id, cb) {
     })
 }
 
+function getAllUsers(cb) {
+    User.find({}, function(err, users) {
+        if (err) {
+            return cb(err, null)
+        }
+        return cb(null, users)
+    })
+}
+
 function createUser(user, cb) {
     var new_user = new User({
         first_name: user.first_name,
@@ -73,6 +82,7 @@ function removeUser(user_id, cb) {
 
 module.exports = {
     getUser,
+    getAllUsers,
     createUser,
     editUser,
     changeUserPassword,

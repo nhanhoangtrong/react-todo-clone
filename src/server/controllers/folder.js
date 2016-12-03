@@ -12,6 +12,15 @@ function getFolder(folder_id, cb) {
     })
 }
 
+function getFoldersByUser(user_id, cb) {
+    Folder.find({_user: user_id}, function(err, folders) {
+        if (err) {
+            return cb(err, null)
+        }
+        return cb(null, folders)
+    })
+}
+
 function createFolder(folder, cb) {
     var new_folder = new Folder({
         title: folder.title,
@@ -73,6 +82,7 @@ function removeFolderByUser(user_id, cb) {
 
 module.exports = {
     getFolder,
+    getFoldersByUser,
     createFolder,
     editFolder,
     removeFolder,

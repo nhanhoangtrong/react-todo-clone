@@ -9,6 +9,24 @@ function getTodo(todo_id, cb) {
     })
 }
 
+function getTodosByUser(user_id, cb) {
+    Todo.find({_user: user_id}, function(err, todos) {
+        if (err) {
+            return cb(err, null)
+        }
+        return cb(null, todos)
+    })
+}
+
+function getTodosByList(list_id, cb) {
+    Todo.find({_list: list_id}, function(err, todos) {
+        if (err) {
+            return cb(err, null)
+        }
+        return cb(null, todos)
+    })
+}
+
 function createTodo(todo, cb) {
     var new_todo = new Todo({
         text: todo.text,
@@ -72,6 +90,8 @@ function removeTodoByList(list_id, cb) {
 
 module,exports = {
     getTodo,
+    getTodosByUser,
+    getTodosByList,
     createTodo,
     editTodo,
     markTodo,

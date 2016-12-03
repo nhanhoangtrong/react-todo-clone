@@ -11,6 +11,24 @@ function getList(list_id, cb) {
     })
 }
 
+function getListsByUser(user_id, cb) {
+    List.find({_user: user_id}, function(err, lists) {
+        if (err) {
+            return cb(err, null)
+        }
+        return cb(null, lists)
+    })
+}
+
+function getListsByFolder(folder_id, cb) {
+    List.find({_folder: folder_id}, function(err, lists) {
+        if (err) {
+            return cb(err, null)
+        }
+        return cb(null, lists)
+    })
+}
+
 function createList(list, cb) {
     var new_list = new List({
         title: list.title,
@@ -93,6 +111,8 @@ function removeListByUser(user_id, cb) {
 
 module.exports = {
     getList,
+    getListsByUser,
+    getListsByFolder,
     createList,
     editList,
     removeList,
