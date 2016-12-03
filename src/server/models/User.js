@@ -6,13 +6,11 @@ var userSchema = new mongoose.Schema({
 	name: String,
 	username: { type: String, required: true, unique: true },
 	password: { type: String, required: true },
+	fist_name: String,
+	last_name: String,
 	auth_token: { type: String },
 	email: { type: String, required: true, unique: true},
 	is_admin: { type: Boolean, default: false },
-	meta: {
-		age: Number,
-		website: String
-	},
 	created: Date,
 	updated: Date
 })
