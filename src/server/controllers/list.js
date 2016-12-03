@@ -65,9 +65,27 @@ function removeListByFolder(folder_id, cb) {
     })
 }
 
+function removeListByUser(user_id, cb) {
+    // Find all lists created by this user
+    List.find({_user: user_id}, function(err, lists) {
+        if (err) {
+            return cb(err)
+        }
+        for (let i in lists) {
+            removeList(lists[i]._id, function(err) {
+                if (err) {
+                    return cb(err)
+                }
+            })
+        }
+        return cb()
+    })
+}
+
 module.exports = {
     createList,
     editList,
     removeList,
-    removeListByFolder
+    removeListByFolder,
+    removeListByUser
 }

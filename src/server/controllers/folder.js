@@ -44,8 +44,27 @@ function removeFolder(folder_id, cb) {
     })
 }
 
+function removeFolderByUser(user_id, cb) {
+    // Find all folders created by this user
+    Folder.find({_user: user_id}, function(err, folders) {
+        if (err) {
+            return cb(err)
+        }
+        // Then remove all folder's lists
+        for (let i in folders) {
+            removeListByFolder(folders[i]._id, function(err) {
+                if (err) {
+                    return cb(err)
+                }
+            })
+        }
+        return cb()
+    })
+}
+
 module.exports = {
     createFolder,
     editFolder,
-    removeFolder
+    removeFolder,
+    removeFolderByUser
 }
