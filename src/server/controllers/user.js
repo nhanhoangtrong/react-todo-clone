@@ -1,4 +1,4 @@
-var User = require('../models/List')
+var User = require('../models/User')
 var { removeListByUser } = require('./list')
 var { removeFolderByUser } = require('./folder')
 
