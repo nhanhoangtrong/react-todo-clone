@@ -98,7 +98,7 @@ function removeUser(user_id, cb) {
                 return cb(err)
             }
             // finnaly call the callback
-            return cb
+            return cb()
         })
     })
 }
