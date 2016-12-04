@@ -3,12 +3,12 @@ var router = express.Router()
 var connectdb = require('../connectdb')
 var { checkAdmin } = require('../middlewares')
 var User = require('../models/User')
-var { getUser, createUser, editUser, removeUser, changeUserPassword } = require('../controllers/user')
+var { getUser, getAllUsers, createUser, editUser, removeUser, changeUserPassword } = require('../controllers/user')
 
 router.route('/')
 .get(function(req, res, next) {
 	// Get all user
-	User.find({}, function(err, users) {
+	getAllUsers(function(err, users) {
 		if (err) {
 			console.error(err)
 			res.sendStatus(500)

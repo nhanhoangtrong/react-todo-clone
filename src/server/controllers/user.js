@@ -11,6 +11,24 @@ function getUser(user_id, cb) {
     })
 }
 
+function getUserByUsername(username, cb) {
+    User.findOne({username: username}, function(err, user) {
+        if (err) {
+            return cb(err, null)
+        }
+        return cb(null, user)
+    })
+}
+
+function getUserByEmail(email, cb) {
+    User.findOne({email: email}, function(err, user) {
+        if (err) {
+            return cb(err, null)
+        }
+        return cb(null, user)
+    })
+}
+
 function getAllUsers(cb) {
     User.find({}, function(err, users) {
         if (err) {
@@ -39,10 +57,14 @@ function createUser(user, cb) {
 
 function editUser(user_id, user, cb) {
     User.findByIdAndUpdate(user_id, {
-        first_name: user.first_name,
-        last_name: user.last_name,
-        is_admin: (user.is_admin || false)
-    }, function(err, raw) {
+        $set: {
+            first_name: user.first_name,
+            last_name: user.last_name,
+            is_admin: (user.is_admin || false)
+        }
+    },{
+        new: true
+    }, function(err, new_user) {
         if (err) {
             return cb(err)
         }
