@@ -1,17 +1,24 @@
 var express = require('express')
 var router = express.Router()
 var Folder = require('../models/Folder')
-var { getFolder, createFolder, editFolder, removeFolder } = require('../controllers/folder')
+var {
+    getFolder,
+    getFoldersByUser,
+    createFolder,
+    editFolder,
+    removeFolder
+} = require('../controllers/folder')
 
 router.route('/')
 .get(function(req, res, next) {
 	// Get all folder
-	Folder.find({}, function(err, folders) {
+	var user_id = req.query._user
+	getFoldersByUser(user_id, function(err, folders) {
 		if (err) {
 			console.error(err)
-			res.sendStatus(500)
+			res.status(500).send()
 		} else {
-			res.status(200).json(folders)
+			res.status(200).send(folders)
 		}
 	})
 })
