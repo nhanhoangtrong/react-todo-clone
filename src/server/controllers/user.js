@@ -68,6 +68,7 @@ function editUser(user_id, user, cb) {
         if (err) {
             return cb(err)
         }
+        console.log(new_user)
         return cb()
     })
 }
@@ -104,6 +105,8 @@ function removeUser(user_id, cb) {
 
 module.exports = {
     getUser,
+    getUserByUsername,
+    getUserByEmail,
     getAllUsers,
     createUser,
     editUser,
