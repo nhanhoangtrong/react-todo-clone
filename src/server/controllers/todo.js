@@ -88,7 +88,7 @@ function removeTodoByList(list_id, cb) {
     })
 }
 
-module,exports = {
+module.exports = {
     getTodo,
     getTodosByUser,
     getTodosByList,

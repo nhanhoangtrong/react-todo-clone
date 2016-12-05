@@ -7,6 +7,7 @@ var {
     getTodo,
     getTodosByUser,
     createTodo,
+    markTodo,
     removeTodo,
     editTodo
 } = require('../controllers/todo')
