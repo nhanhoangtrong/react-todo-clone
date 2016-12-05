@@ -3,6 +3,7 @@ process.env.NODE_ENV = 'test'
 let User = require('../src/server/models/User')
 let Folder = require('../src/server/models/Folder')
 let List = require('../src/server/models/List')
+let Todo = require('../src/server/models/Todo')
 
 let chai = require('chai')
 let chaiHttp = require('chai-http')
@@ -15,7 +16,7 @@ chai.use(chaiHttp)
 server.listen(8080)
 
 // Before the tests, we create a new admin
-var admin
+let admin
 before((done) => {
     admin = new User({
         username: "admin",
@@ -46,7 +47,7 @@ describe('User', () => {
         })
     })
 
-    var user
+    let user
 
     // Test the POST route
     describe('/POST /api/user/', () => {
@@ -176,7 +177,7 @@ describe('Folder and List', () => {
         })
     })
 
-    // Test GET all folder
+    // Test GET all user's folder
     describe('/GET /api/folder', () => {
         it('it should GET a folder list', (done) => {
             chai.request(server)
@@ -191,6 +192,7 @@ describe('Folder and List', () => {
     })
 
     // Test POST a new List
+    let list
     describe('/POST /api/list', () => {
         it('it should POST a new list', (done) => {
             let payload = {
@@ -205,8 +207,211 @@ describe('Folder and List', () => {
                 .end((err, res) => {
                     res.should.have.status(200)
                     res.body.should.be.a('object')
+                    list = res.body
                     done()
                 })
+        })
+    })
+
+    // Test PUT a list
+    describe('/PUT /api/list/:list_id', () => {
+        it('it should PUT update an existing list', (done) => {
+            let payload = {
+                title: "This list is modified",
+                order: 2
+            }
+            chai.request(server)
+                .put('/api/list/' + list._id)
+                .auth(user.username, user.password)
+                .send(payload)
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    done()
+                })
+        })
+    })
+
+    // Test GET a modified list
+    describe('/GET /api/list/:list_id', () => {
+        it('it should GET a modified list', (done) => {
+            chai.request(server)
+                .get('/api/list/' + list._id)
+                .auth(user.username, user.password)
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.body.should.be.an('object')
+                    res.body.should.have.property('title').with.equal('This list is modified')
+                    res.body.should.have.property('order').with.equal(2)
+                    done()
+                })
+        })
+    })
+})
+
+describe('Todo and List', () => {
+
+    // Create a test user and a test list
+    let test_user, test_list
+    before((done) => {
+        test_user = new User({
+            username: "tester",
+            password: "tester",
+            email: "tester@email.com",
+            is_admin: false
+        })
+        test_user.save((err) => {
+            if (err) {
+                return console.error(err)
+            }
+            test_list = new List({
+                title: "This is a test list",
+                order: 1,
+                _user: test_user._id
+            })
+            test_list.save((err) => {
+                if (err) {
+                    return console.error(err)
+                }
+                done()
+            })
+        })
+    })
+
+    // Remove test user and all related lists and todos after tests
+    after((done) => {
+        Todo.remove({_user: test_user._id}, (err, raw) => {
+            List.remove({_user: test_user._id}, (err, raw) => {
+                User.remove({_id: test_user._id}, (err, raw) => {
+                    done()
+                })
+            })
+        })
+    })
+
+    // Test POST create a new todo
+    let todos = []
+    describe('/POST /api/todo', () => {
+        it('it should POST a new todo', (done) => {
+            let payload = {
+                text: "This is a test todo",
+                order: 1,
+                _list: test_list._id
+            }
+            chai.request(server)
+                .post('/api/todo')
+                .auth(test_user.username, test_user.password)
+                .send(payload)
+                .end((err, res) => {
+                    
+                    res.should.have.status(200)
+                    res.body.should.be.an('object')
+                    todos.push(res.body)
+                    done()
+                })
+        })
+    })
+
+    // Test POST create another new todo
+    describe('/POST /api/todo', () => {
+        it('it should POST another new todo', (done) => {
+            let payload = {
+                text: "This is another test todo",
+                order: 2,
+                _list: test_list._id
+            }
+            chai.request(server)
+                .post('/api/todo')
+                .auth(test_user.username, test_user.password)
+                .send(payload)
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.body.should.be.an('object')
+                    todos.push(res.body)
+                    done()
+                })
+        })
+    })
+
+    // Test PUT to edit an existing todo
+    describe('/PUT /api/todo/:todo_id', () => {
+        it('it should PUT to edit an existing todo', (done) => {
+            let payload = {
+                text: "This todo is modified",
+                order: 1,
+                _list: test_list._id
+            }
+            chai.request(server)
+                .put('/api/todo/' + todos[0]._id)
+                .auth(test_user.username, test_user.password)
+                .send(payload)
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    done()
+                })
+        })
+    })
+
+    // Test PUT to mark the second todo as completed
+    describe('/PUT /api/todo/mark/:todo_id', () => {
+        it('it should PUT to mark the second todo as completed', (done) => {
+            let payload = {
+                completed: true
+            }
+            chai.request(server)
+                .put('/api/todo/mark/' + todos[1]._id)
+                .auth(test_user.username, test_user.password)
+                .send(payload)
+                .end((err, res) => {
+                    
+                    res.should.have.status(200)
+                    done()
+                })
+        })
+    })
+
+    // Test GET to query all user's todos
+    describe('/GET /api/todo', () => {
+        it("it should GET all user's todo", (done) => {
+            chai.request(server)
+                .get('/api/todo')
+                .auth(test_user.username, test_user.password)
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.body.should.be.an('array')
+                    res.body.should.have.property('length').with.equal(2)
+                    res.body.should.have.property(0).with.have.property('text', 'This todo is modified')
+                    res.body.should.have.property(1).with.have.property('completed', true)
+                    done()
+                }) 
+        })
+    })
+
+    // Test DELETE to remove an user's todo
+    describe('/DELETE /api/todo/:todo_id', () => {
+        it('it should DELETE remove an existing todo', (done) => {
+            chai.request(server)
+                .delete('/api/todo/' + todos[1]._id)
+                .auth(test_user.username, test_user.password)
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    done()
+                })
+        })
+    })
+
+    // Test GET to query all user's todos after remove
+    describe('/GET /api/todo', () => {
+        it("it should GET all user's todo", (done) => {
+            chai.request(server)
+                .get('/api/todo')
+                .auth(test_user.username, test_user.password)
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.body.should.be.an('array')
+                    res.body.should.have.property('length').with.equal(1)
+                    res.body.should.have.property(0).with.have.property('text', 'This todo is modified')
+                    done()
+                }) 
         })
     })
 })
