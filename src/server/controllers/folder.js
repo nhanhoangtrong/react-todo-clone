@@ -37,8 +37,10 @@ function createFolder(folder, cb) {
 
 function editFolder(folder_id, folder, cb) {
     Folder.findByIdAndUpdate(folder_id, {
-        title: folder.title,
-        order: folder.order
+        $set: {
+            title: folder.title,
+            order: folder.order
+        }
     }, { runValidators: true}, function(err) {
         if (err) {
             return cb(err)

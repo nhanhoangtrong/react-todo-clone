@@ -46,9 +46,11 @@ function createList(list, cb) {
 
 function editList(list_id, list, cb) {
     List.findByIdAndUpdate(list_id, {
-        title: list.title,
-        order: list.order,
-        _folder: list._folder
+        $set: { 
+            title: list.title,
+            order: list.order,
+            _folder: list._folder
+        }
     }, {
         runValidators: true
     }, function(err, raw) {

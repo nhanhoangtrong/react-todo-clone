@@ -45,10 +45,12 @@ function createTodo(todo, cb) {
 
 function editTodo(todo_id, todo, cb) {
     Todo.findByIdAndUpdate(todo_id, {
-        text: todo.text,
-        order: todo.order,
-        _list: todo._list,
-        completed: todo.completed
+        $set: {
+            text: todo.text,
+            order: todo.order,
+            _list: todo._list,
+            completed: todo.completed
+        }
     }, {
         runValidators: true
     }, function(err, raw) {
@@ -60,8 +62,10 @@ function editTodo(todo_id, todo, cb) {
 }
 
 function markTodo(todo_id, completed, cb) {
-    Todo.findByIdAndRemove(todo_id, {
-        completed: completed
+    Todo.findByIdAndUpdate(todo_id, {
+        $set: {
+            completed: completed
+        }
     }, function(err, raw) {
         if (err) {
             return cb(err)
