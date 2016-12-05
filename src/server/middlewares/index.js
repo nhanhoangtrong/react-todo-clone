@@ -14,6 +14,8 @@ module.exports = {
 						// Username and password is valid
 						req.user = user
 						next()
+					} else {
+						res.status(401).send()
 					}
 				}
 			})
