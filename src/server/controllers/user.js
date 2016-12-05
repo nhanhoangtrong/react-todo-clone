@@ -3,45 +3,40 @@ var { removeListByUser } = require('./list')
 var { removeFolderByUser } = require('./folder')
 
 function getUser(user_id, cb) {
-    User.findById(user_id, function(err, user) {
+    User.findById(user_id).exec(function(err, user) {
         if (err) {
             return cb(err, null)
         }
-        // Remove password field
-        delete user.password
         return cb(null, user)
     })
 }
 
 function getUserByUsername(username, cb) {
-    User.findOne({username: username}, function(err, user) {
+    User.findOne({username: username}).exec(function(err, user) {
         if (err) {
             return cb(err, null)
         }
-        delete user.password
         return cb(null, user)
     })
 }
 
 function getUserByEmail(email, cb) {
-    User.findOne({email: email}, function(err, user) {
+    User.findOne({email: email}).exec(function(err, user) {
         if (err) {
             return cb(err, null)
         }
-        delete user.password
         return cb(null, user)
     })
 }
 
 function getAllUsers(cb) {
-    User.find({}, function(err, users) {
+    User.find({}).exec(function(err, users) {
         if (err) {
             return cb(err, null)
         }
-        users.forEach(function(user) {
-            delete user.password
-        })
-        return cb(null, users)
+        return cb(null, users.map(function(user) {
+            return user
+        }))
     })
 }
 
@@ -56,9 +51,9 @@ function createUser(user, cb) {
     })
     new_user.save(function(err, user) {
         if (err) {
+            console.error(err)
             return cb(err, null)
         }
-        delete user.password
         return cb(null, user)
     })
 }

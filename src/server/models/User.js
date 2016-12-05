@@ -37,6 +37,11 @@ userSchema.pre('save', function(next) {
 userSchema.methods.isAdmin = function() {
 	return this.is_admin
 }
+userSchema.methods.toJSON = function() {
+	var object = this.toObject()
+	object.password = undefined
+	return object
+}
 
 // Create model from schema
 var User = mongoose.model('User', userSchema)

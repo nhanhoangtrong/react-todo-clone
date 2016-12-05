@@ -27,7 +27,9 @@ router.route('/')
                 console.error(err)
                 res.status(400).send()
             } else {
-                res.status(200).json(users)
+                res.status(200).json(users.map(function(user) {
+                    return user.toJSON()
+                }))
             }
         })
     })
@@ -38,7 +40,7 @@ router.route('/')
                 console.error(err)
                 res.status(400).send()
             } else {
-                res.send(user)
+                res.send(user.toJSON())
             }
         })
     })
@@ -53,7 +55,7 @@ router.route('/:user_id')
 	                console.log(err)
 	                res.status(400).send()
 	            } else {
-	                res.status(200).json(user)
+	                res.status(200).json(user.toJSON())
 	            }
 	        })
 		}
