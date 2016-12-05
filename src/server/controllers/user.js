@@ -7,6 +7,8 @@ function getUser(user_id, cb) {
         if (err) {
             return cb(err, null)
         }
+        // Remove password field
+        delete user.password
         return cb(null, user)
     })
 }
@@ -16,6 +18,7 @@ function getUserByUsername(username, cb) {
         if (err) {
             return cb(err, null)
         }
+        delete user.password
         return cb(null, user)
     })
 }
@@ -25,6 +28,7 @@ function getUserByEmail(email, cb) {
         if (err) {
             return cb(err, null)
         }
+        delete user.password
         return cb(null, user)
     })
 }
@@ -34,6 +38,9 @@ function getAllUsers(cb) {
         if (err) {
             return cb(err, null)
         }
+        users.forEach(function(user) {
+            delete user.password
+        })
         return cb(null, users)
     })
 }
@@ -51,6 +58,7 @@ function createUser(user, cb) {
         if (err) {
             return cb(err, null)
         }
+        delete user.password
         return cb(null, user)
     })
 }
@@ -68,7 +76,6 @@ function editUser(user_id, user, cb) {
         if (err) {
             return cb(err)
         }
-        console.log(new_user)
         return cb()
     })
 }
