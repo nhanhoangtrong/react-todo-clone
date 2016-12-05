@@ -18,18 +18,20 @@ server.listen(8080)
 // Before the tests, we create a new admin
 let admin
 before((done) => {
-    admin = new User({
+    User.remove({}, function(err) {
+        admin = new User({
         username: "admin",
         password: "admin",
         email: "admin@email.com",
         is_admin: true
-    })
-    admin.save(function(err) {
-        if (err) {
-            return console.error(err)
-        }
-        done()
-    })
+        })
+        admin.save(function(err) {
+            if (err) {
+                return console.error(err)
+            }
+            done()
+        })
+    })  
 })
 
 // After the tests, we remove the created admin user
@@ -65,8 +67,10 @@ describe('User', () => {
                 .end((err, res) => {
                     res.should.have.status(200)
                     res.body.should.have.property('_id')
+                    res.body.should.not.have.property('password')
                     res.body._id.should.be.a('string')
                     user = res.body
+                    user.password = "user1"
                     done()
                 })
         })
@@ -100,6 +104,7 @@ describe('User', () => {
                     res.should.have.status(200)
                     res.body.should.have.property('_id')
                     res.body._id.should.be.a('string')
+                    res.body.should.not.have.property('password')
                     res.body.should.have.property('first_name').with.equal('hello')
                     res.body.should.have.property('last_name').with.equal('world')
                     done()
