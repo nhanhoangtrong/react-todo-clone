@@ -1,23 +1,19 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Router, Route, hashHistory } from 'react-router'
+import { Router, Route } from 'react-router'
+import { appHistory } from './global'
 import { Provider } from 'react-redux'
-import todoStore from './redux/todo_store'
+import store from './client/store'
 
-import App from './components/App'
-import TodoApp from './components/apps/TodoApp'
-import UserApp from './components/apps/UserApp'
+import App from './client/components/App'
 
 require('./index.html')
+
 var render = function() {
 	return (
-		<Provider store={todoStore}>
-			<Router history={hashHistory}>
+		<Provider store={store}>
+			<Router history={appHistory}>
 				<Route path="/" component={App}>
-					<Route path="/todo" component={TodoApp}>
-						<Route path="/todo/:filter" component={TodoApp} />
-					</Route>
-					<Route path="/user" component={UserApp}/>
 				</Route>
 			</Router>
 		</Provider>
